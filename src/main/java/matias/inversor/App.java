@@ -2,6 +2,7 @@ package matias.inversor;
 
 import IO.LectorArchivoHistoricoMerval;
 import IO.VariacionFondoDAO;
+import analisisEvolucion.AnalizadorBasico;
 import analisisEvolucion.PosicionMerval;
 import conceptos.fondos.VariacionFondo;
 import simulacion.simuladores.ideasViejas.AnalizadorResultados;
@@ -22,7 +23,7 @@ public class App
     public static void main(String[] args) {
 
         try {
-            leerArchivoHistoricoMerval();
+          leerArchivoHistoricoMerval();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,6 +35,12 @@ public class App
         LectorArchivoHistoricoMerval lector = new LectorArchivoHistoricoMerval();
 
         ArrayList<PosicionMerval> posicionesMerval = lector.leerArchivoHistoricoMerval(url);
+
+        AnalizadorBasico analizadorBasico = new AnalizadorBasico(posicionesMerval);
+
+        System.out.println("Cantidad de entradas: " + posicionesMerval.size());
+        System.out.println("Mayor positiva: " + analizadorBasico.getMayorVariacionPositiva());
+        System.out.println("Mayor negativa: " + analizadorBasico.getMayorVariacionNegativa());
     }
 
     private static void simularSuscripcionPorcentualConstanteSegunVariacionHistorica(){

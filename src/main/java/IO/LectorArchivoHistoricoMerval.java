@@ -1,6 +1,8 @@
 package IO;
 
 import analisisEvolucion.PosicionMerval;
+import conceptos.excepciones.ExcepcionMonedaIncompatible;
+import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.Row;
@@ -18,7 +20,7 @@ import java.util.List;
 public class LectorArchivoHistoricoMerval {
 
     private String nombreTabla = "Hoja1";
-    private String formatoFecha = "d/m/yy";
+    private String formatoFecha = "d/M/yy";
     private int primeraFilaParaLeer = 1;
     private int posicionFecha = 0;
     private int posicionCierre = 1;
@@ -31,7 +33,7 @@ public class LectorArchivoHistoricoMerval {
 
         ArrayList<PosicionMerval> posicionesMerval = new ArrayList<>();
 
-        TextDocument archivo = TextDocument.loadDocument(url);
+        SpreadsheetDocument archivo = SpreadsheetDocument.loadDocument(url);
 
         Table tabla = archivo.getTableByName(nombreTabla);
 
@@ -41,19 +43,39 @@ public class LectorArchivoHistoricoMerval {
 
             Row fila = filas.get(i);
 
-            PosicionMerval posicionMerval = new PosicionMerval();
-
-            extraerFecha(posicionMerval, fila);
-            extraerValorCierre(posicionMerval, fila);
-            extraerValorApertura(posicionMerval, fila);
-            extraerVariacion(posicionMerval, fila);
-            extraerMinimo(posicionMerval, fila);
-            extraerMaximo(posicionMerval, fila);
+            PosicionMerval posicionMerval = cargarNuevaPosicionConValoresDeFila(fila);
 
             posicionesMerval.add(posicionMerval);
+
         }
 
         return posicionesMerval;
+    }
+
+    private PosicionMerval cargarNuevaPosicionConValoresDeFila(Row fila){
+        PosicionMerval posicionMerval = new PosicionMerval();
+
+        extraerFecha(posicionMerval, fila);
+        extraerValorCierre(posicionMerval, fila);
+        extraerValorApertura(posicionMerval, fila);
+        extraerVariacion(posicionMerval, fila);
+        extraerMinimo(posicionMerval, fila);
+        extraerMaximo(posicionMerval, fila);
+
+        return posicionMerval;
+    }
+
+    private float parsearNumeroLeido(String numero){
+        float numeroConvertido = 0;
+
+        try{
+            numeroConvertido = Float.parseFloat(numero);
+        }
+        catch(Exception e){
+            numeroConvertido = convertirNumeroConComaYPunto(numero);
+        }
+
+        return numeroConvertido;
     }
 
     private float convertirNumeroConComaYPunto(String numero){
@@ -80,35 +102,35 @@ public class LectorArchivoHistoricoMerval {
 
     private  void extraerValorCierre(PosicionMerval posicionMerval, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionCierre);
-        float valorCierre = convertirNumeroConComaYPunto(valorCelda);
+        float valorCierre = parsearNumeroLeido(valorCelda);
 
         posicionMerval.setCierre(valorCierre);
     }
 
     private void extraerValorApertura(PosicionMerval posicionMerval, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionApertura);
-        float valorApertura = convertirNumeroConComaYPunto(valorCelda);
+        float valorApertura = parsearNumeroLeido(valorCelda);
 
         posicionMerval.setApertura(valorApertura);
     }
 
     private void extraerVariacion(PosicionMerval posicionMerval, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionVariacion);
-        float valorVariacion = convertirNumeroConComaYPunto(valorCelda);
+        float valorVariacion = parsearNumeroLeido(valorCelda);
 
         posicionMerval.setVariacionPorcentual(valorVariacion);
     }
 
     private void extraerMinimo(PosicionMerval posicionMerval, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionMinimo);
-        float valorMinimo = convertirNumeroConComaYPunto(valorCelda);
+        float valorMinimo = parsearNumeroLeido(valorCelda);
 
         posicionMerval.setMinimo(valorMinimo);
     }
 
     private void extraerMaximo(PosicionMerval posicionMerval, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionMaximo);
-        float valorMaximo = convertirNumeroConComaYPunto(valorCelda);
+        float valorMaximo = parsearNumeroLeido(valorCelda);
 
         posicionMerval.setMaximo(valorMaximo);
     }

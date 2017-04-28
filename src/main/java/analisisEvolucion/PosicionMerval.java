@@ -60,4 +60,12 @@ public class PosicionMerval {
     public void setVariacionPorcentual(float variacionPorcentual) {
         this.variacionPorcentual = variacionPorcentual;
     }
+
+    public String toString(){
+        String str = getFecha() + ". Ap: " + getApertura();
+        str += ". Ci: " + getCierre() + ". Var: " + getVariacionPorcentual();
+        str += ". Max: " + getMaximo() + ". Min: " + getMinimo();
+
+        return str;
+    }
 }
