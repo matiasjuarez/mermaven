@@ -1,9 +1,7 @@
 package IO;
 
 import analisisEvolucion.PosicionMerval;
-import conceptos.excepciones.ExcepcionMonedaIncompatible;
 import org.odftoolkit.simple.SpreadsheetDocument;
-import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
