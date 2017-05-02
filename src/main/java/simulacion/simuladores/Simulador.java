@@ -41,7 +41,7 @@ public abstract class Simulador {
     
     public void mostrarConfiguracionSimulacion(){
         String str = "La simulacion se correra con los siguientes valores: \n";
-        str += "Cliente: " + this.cliente.getNombre() + "\n";
+        str += "Cliente: " + this.cliente.getNombreDB() + "\n";
         str += "Caja de ahorro pesos: $" + this.cliente.getCuentaCliente().getCuentaBancaria().getCajaDeAhorroPesos().getCuenta().getCapital() + "\n";
         str += "Caja de ahorro dolares: US$" + this.cliente.getCuentaCliente().getCuentaBancaria().getCajaDeAhorroDolares().getCuenta().getCapital() + "\n";
         str += "Fondos en los que participa: \n";

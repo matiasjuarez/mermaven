@@ -80,7 +80,7 @@ public class SistemaControlSolicitudesFCI {
         ArrayList<Solicitud> solicitudesNoProcesadas = AlmacenSolicitudes.getInstance().getSolicitudesSegunEstado(Solicitud.Estado.CREADA);
 
         for(Solicitud solicitud : solicitudesNoProcesadas){
-            if(solicitud.getFondo().getNombre().equalsIgnoreCase(participacionFondo.getFondo().getNombre())){
+            if(solicitud.getFondo().getNombreDB().equalsIgnoreCase(participacionFondo.getFondo().getNombreDB())){
                 cuotaPartesYaSolicitadas += solicitud.getMonto().getCantidad();
             }
         }

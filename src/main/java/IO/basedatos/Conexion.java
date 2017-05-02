@@ -1,5 +1,7 @@
 package IO.basedatos;
 
+import configuracion.Configuracion;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,7 +11,6 @@ import java.sql.SQLException;
  */
 public class Conexion {
     private final String baseDatos;
-    private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     private final String prefijoUrl = "jdbc:derby:";
 
     private Connection connection;
@@ -18,31 +19,54 @@ public class Conexion {
         this.baseDatos = baseDatos;
     }
 
-    public Connection conectar(){
-        if(connection == null){
-            try {
-                String urlConexion = prefijoUrl + baseDatos + ";create=true";
-                connection = DriverManager.getConnection(urlConexion);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.exit(0);
-            }
+    /**
+     * Desconecta la conexion si existe una y crea una nueva.
+     * @param autocommit - Indica si la conexion va tener autocommit o no
+     * @return un objeto Connection listo para usarse
+     * @throws SQLException
+     */
+    public Connection conectar(boolean autocommit) throws SQLException {
+        if(connection != null){
+            desconectar();
         }
+
+        String urlConexion = prefijoUrl + baseDatos + ";create=true";
+        connection = DriverManager.getConnection(urlConexion);
+        connection.setAutoCommit(autocommit);
 
         return connection;
     }
 
     public boolean desconectar(){
-        String urlDesconexion = prefijoUrl + baseDatos + ";shutdown=true";
-
-        try {
-            DriverManager.getConnection(urlDesconexion);
-        } catch (SQLException e) {
-            if ( e.getSQLState().equals("XJ015") ) {
+        if(connection != null){
+            try {
+                connection.close();
+                connection = null;
                 return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
             }
         }
 
-        return false;
+        return true;
+    }
+
+    public static boolean desconectar(Connection connection){
+        if(connection != null){
+            try {
+                connection.close();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public Connection getConnection(){
+        return this.connection;
     }
 }
