@@ -37,7 +37,7 @@ public class SimuladorConIngresosProporcionalesAInversionExistente extends Simul
         try {
             crearEstadoInicial();
         } catch (Exception e){
-            logger.log("No se pudo crear estado inicial: " + e.getMessage());
+            logger.log("No se pudo create estado inicial: " + e.getMessage());
             return;
         }
 

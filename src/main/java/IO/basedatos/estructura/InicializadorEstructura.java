@@ -1,7 +1,7 @@
 package IO.basedatos.estructura;
 
-import IO.basedatos.estructura.baseDatos.BaseDatos_AnalisisEvolucion;
-import IO.basedatos.estructura.baseDatos.BaseDeDatos;
+import IO.basedatos.estructura.baseDatos.DB_Analysis_Merval_Evolution;
+import IO.basedatos.estructura.baseDatos.DataBase;
 
 import java.sql.SQLException;
 
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class InicializadorEstructura {
 
     public static void inicializarBasesDeDatos() throws SQLException {
-        BaseDeDatos baseAnalisisEvolucion = new BaseDatos_AnalisisEvolucion();
-        baseAnalisisEvolucion.crear();
+        DataBase baseAnalisisEvolucion = new DB_Analysis_Merval_Evolution();
+        baseAnalisisEvolucion.create();
     }
 }

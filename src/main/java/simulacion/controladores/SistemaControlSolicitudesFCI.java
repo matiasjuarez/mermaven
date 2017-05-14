@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Se encarga de validar que se posean los fondos necesarios para crear la solicitud de rescate o suscripcion y almacena
+ * Se encarga de validar que se posean los fondos necesarios para create la solicitud de rescate o suscripcion y almacena
  * la solicitud en el almacen de solicitudes.
  * @author Matías
  */
@@ -46,7 +46,7 @@ public class SistemaControlSolicitudesFCI {
      * @throws ExcepcionMonedaIncompatible
      */
     /*public Solicitud crearSolicitudSegunCuotaPartes
-    (CajaDeAhorro cajaDeAhorro, ParticipacionFondo participacionFondo, float cuotaPartes, Solicitud.Tipo tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
+    (CajaDeAhorro cajaDeAhorro, ParticipacionFondo participacionFondo, float cuotaPartes, Solicitud.Type tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
 
         validarNuevaSolicitud(cajaDeAhorro, participacionFondo, cuotaPartes, tipoSolicitud);
 
@@ -60,16 +60,16 @@ public class SistemaControlSolicitudesFCI {
 
     /*private void validarNuevaSolicitud(CajaDeAhorro cajaDeAhorro,
                                        ParticipacionFondo participacionFondo,
-                                       float cuotaPartes, Solicitud.Tipo tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
+                                       float cuotaPartes, Solicitud.Type tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
 
         if(cajaDeAhorro.getCuenta().getMoneda() != participacionFondo.getMonedaDelFondo()){
             throw new ExcepcionMonedaIncompatible("La cuenta con la que desea operar no maneja la misma moneda que el FCI con el que esta tratando");
         }
 
-        if(tipoSolicitud == Solicitud.Tipo.RESCATE){
+        if(tipoSolicitud == Solicitud.Type.RESCATE){
             validarNuevoRescate(participacionFondo, cuotaPartes);
         }
-        else if(tipoSolicitud == Solicitud.Tipo.SUSCRIPCION){
+        else if(tipoSolicitud == Solicitud.Type.SUSCRIPCION){
             validarNuevaSuscripcion(participacionFondo, cuotaPartes, cajaDeAhorro);
         }
     }*/
@@ -80,7 +80,7 @@ public class SistemaControlSolicitudesFCI {
         ArrayList<Solicitud> solicitudesNoProcesadas = AlmacenSolicitudes.getInstance().getSolicitudesSegunEstado(Solicitud.Estado.CREADA);
 
         for(Solicitud solicitud : solicitudesNoProcesadas){
-            if(solicitud.getFondo().getNombreDB().equalsIgnoreCase(participacionFondo.getFondo().getNombreDB())){
+            if(solicitud.getFondo().getName().equalsIgnoreCase(participacionFondo.getFondo().getName())){
                 cuotaPartesYaSolicitadas += solicitud.getMonto().getCantidad();
             }
         }
@@ -111,7 +111,7 @@ public class SistemaControlSolicitudesFCI {
      * @throws ExcepcionFondosInsuficientes
      */
     /*public Solicitud crearSolicitudSegunDinero(CajaDeAhorro cajaDeAhorro, ParticipacionFondo participacionFondo,
-                                               Monto monto, Solicitud.Tipo tipoSolicitud) throws ExcepcionMonedaIncompatible, ExcepcionFondosInsuficientes {
+                                               Monto monto, Solicitud.Type tipoSolicitud) throws ExcepcionMonedaIncompatible, ExcepcionFondosInsuficientes {
 
         if(monto.getMoneda() != participacionFondo.getMonedaDelFondo()){
             throw new ExcepcionMonedaIncompatible("La cantidad que de dinero con la que desea operar esta expresada en una moneda diferente a la moneda en la que opera el FCI");
