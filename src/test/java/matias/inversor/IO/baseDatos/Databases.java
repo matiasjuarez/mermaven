@@ -1,29 +1,54 @@
 package matias.inversor.IO.baseDatos;
 
-import IO.basedatos.DBConnection;
-import IO.basedatos.estructura.InicializadorEstructura;
-import configuracion.Configuration;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import IO.DB.DBConnection;
+import IO.DB.structure.databases.DataBase;
+import org.junit.After;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by Matías on 29/04/2017.
  */
-public class Databases extends TestCase{
+public class Databases {
 
     private final String ERROR_CONNECTION_STATUS_CHECK = "There was an error while verifying the status of the connection";
 
-    private final String DB_TEST_URL = Configuration.getInstance().getPathToDatabases() + "DB_TEST";
+    private static DataBase dbTest;
 
+    @BeforeClass
+    public static void intialize(){
+        dbTest = new DB_Test();
+        deleteTestDatabase();
+    }
+
+    @After
+    public void clean(){
+        deleteTestDatabase();
+    }
+
+    private static void deleteTestDatabase(){
+        if(dbTest.exists()){
+            try {
+                dbTest.delete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
     public void testConnectionDisconnection(){
         boolean connectedSuccesfully = false;
         Connection connection = null;
 
         try {
-            connection = DBConnection.createConnection(DB_TEST_URL);
+            connection = dbTest.getConnectionToDatabase();
             connectedSuccesfully = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,7 +60,7 @@ public class Databases extends TestCase{
         try {
             assertFalse(connection.isClosed());
         } catch (SQLException e) {
-            Assert.fail(ERROR_CONNECTION_STATUS_CHECK);
+            fail(ERROR_CONNECTION_STATUS_CHECK);
         }
 
         DBConnection.disconnect(connection);
@@ -43,17 +68,28 @@ public class Databases extends TestCase{
         try {
             assertTrue(connection.isClosed());
         } catch (SQLException e) {
-            Assert.fail(ERROR_CONNECTION_STATUS_CHECK);
+            fail(ERROR_CONNECTION_STATUS_CHECK);
         }
     }
 
-    public void testInicializadorBaseDatos(){
+    @Test
+    public void testCreationDeletionOfDatabase(){
+        assertFalse(dbTest.exists());
+
         try {
-            InicializadorEstructura.inicializarBasesDeDatos();
-            assertTrue(true);
+            dbTest.create();
         } catch (SQLException e) {
             e.printStackTrace();
-            fail();
         }
+
+        assertTrue(dbTest.exists());
+
+        try {
+            dbTest.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assertFalse(dbTest.exists());
     }
 }

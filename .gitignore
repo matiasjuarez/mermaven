@@ -38,3 +38,6 @@ out/
 # Maven
 log/
 target/
+
+# Derby
+src/main/Datos/DB/
