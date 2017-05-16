@@ -1,6 +1,7 @@
 package IO.DB.structure.databases;
 
 import IO.DB.DBConnection;
+import IO.DB.exceptions.InvalidTableDefinitionException;
 import IO.DB.structure.tablas.Table;
 import configuracion.Configuration;
 import org.apache.commons.io.FileUtils;
@@ -8,54 +9,47 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Created by Matías on 30/04/2017.
  */
-public abstract class DataBase {
+public class Database {
     private String name;
-    protected ArrayList<Table> tables;
+    private ArrayList<Table> tables;
 
-    public DataBase(String name){
+    public Database(String name){
         this.name = name;
-        addTables();
+        this.tables = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    /**
-     * This is a template method for 'generateTables' method.
-     */
-    private void addTables(){
-        this.tables = new ArrayList<>();
-
-        ArrayList<Table> tables = generateTables();
-        for(Table table : tables){
-            this.tables.add(table);
-        }
+    public ArrayList<Table> getTables(){
+        return tables;
     }
 
-    /**
-     * This method should contain the code to generate an arrayList of the tables
-     * that each database needs.
-     * @return an ArrayList of the tables needed by a particular DB
-     */
-    protected abstract ArrayList<Table> generateTables();
+    public void addTable(Table table){
+        this.tables.add(table);
+    }
 
     /**
      * Creates the database and its tables.
      * @throws SQLException
      */
-    public void create() throws SQLException{
+    public void create() throws SQLException, InvalidTableDefinitionException {
         Connection connection = getConnectionToDatabase();
         connection.setAutoCommit(true);
 
         for(Table table : tables){
-            table.create(connection);
+            if(!tableExists(table.getName())){
+                table.create(connection);
+            }
         }
 
         DBConnection.disconnect(connection);
@@ -86,6 +80,34 @@ public abstract class DataBase {
         File file = new File(getDatabaseURL());
 
         return file.exists();
+    }
+
+    /**
+     * Checks if the table already exists in the database
+     * @param tableName - The name of the table we want to check
+     * @return true if the table exists
+     */
+    public boolean tableExists(String tableName) throws SQLException {
+        Connection connection = getConnectionToDatabase();
+
+        DatabaseMetaData metadata = connection.getMetaData();
+        ResultSet resultSet = metadata.getTables( null, null, tableName.toUpperCase(), null);
+
+        boolean tableExists = false;
+
+        while( resultSet.next())
+        {
+            String table = resultSet.getString( "TABLE_NAME");
+
+            if(table.equalsIgnoreCase(tableName)){
+                tableExists = true;
+                break;
+            }
+        }
+
+        DBConnection.disconnect(connection);
+
+        return tableExists;
     }
 
     /**

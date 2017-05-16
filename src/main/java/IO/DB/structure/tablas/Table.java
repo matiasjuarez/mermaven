@@ -1,54 +1,65 @@
 package IO.DB.structure.tablas;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import IO.DB.exceptions.InvalidTableDefinitionException;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by Matías on 29/04/2017.
  */
-public abstract class Table {
+public class Table {
 
-    protected String name;
-    protected ArrayList<Field> fields;
+    private String name;
+    private ArrayList<Field> fields;
 
     public Table(String name){
         this.name = name;
-        addTableFields();
-    }
-
-    /**
-     * Checks if the table already exists in the database
-     * @param connection
-     * @return true if the table exists
-     */
-    public boolean exists(Connection connection){
-        return false;
-    }
-
-    /**
-     * Creates the table if it doesn't exist in the database to which the connection
-     * is connected
-     * @param connection
-     * @throws SQLException
-     */
-    public void create(Connection connection) throws SQLException {
-        if(!exists(connection)){
-            Statement statement = connection.createStatement();
-            statement.execute(getCreationStatement());
-        }
+        this.fields = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
+    public ArrayList<Field> fields(){ return fields; }
+
+    public void addField(Field field){
+        fields.add(field);
+    }
+
+    /**
+     * Creates the table in the database to which the connection
+     * is connected.
+     * @param connection
+     * @throws SQLException
+     */
+    public void create(Connection connection) throws SQLException, InvalidTableDefinitionException {
+        Statement statement = connection.createStatement();
+        statement.execute(getCreationStatement());
+    }
+
+    /**
+     * Drop the table in the database to which the connection is connected
+     * @param connection
+     * @throws SQLException
+     */
+    public void delete(Connection connection) throws SQLException {
+        String sentence = "drop table " + getName();
+
+        Statement statement = connection.createStatement();
+        statement.execute(sentence);
+    }
+
     /**
      * Generates the creation statement for the table based on its fields.
-     * @return the creation statement
+     * @return the creation statement or null if the table has no defined fields
      */
-    private String getCreationStatement(){
+    private String getCreationStatement() throws InvalidTableDefinitionException {
+        if(this.fields == null || this.fields.size() == 0){
+            throw new InvalidTableDefinitionException("The table has no fields defined");
+        }
+
         StringBuilder fields = new StringBuilder();
 
         for(Field field : this.fields){
@@ -77,25 +88,4 @@ public abstract class Table {
 
         return fieldDefinition.toString();
     }
-
-    /**
-     * This is a template method for 'generateTableFields' methods.
-     * It's invoked in the constructor for each table.
-     */
-    private void addTableFields(){
-        this.fields = new ArrayList<>();
-
-        ArrayList<Field> generatedFields = generateTableFields();
-
-        for(Field field : generatedFields){
-            this.fields.add(field);
-        }
-    }
-
-    /**
-     * The purpose for this method is to have a common place for all tables
-     * so they can define their own fields.
-     * @return and arrayList with the fields of the table
-     */
-    protected abstract ArrayList<Field> generateTableFields();
 }
