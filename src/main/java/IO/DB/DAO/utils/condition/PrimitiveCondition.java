@@ -1,6 +1,6 @@
-package IO.DB.DAO.condition;
+package IO.DB.DAO.utils.condition;
 
-import IO.DB.DAO.FieldFormatter;
+import IO.DB.DAO.utils.FieldFormatter;
 import IO.DB.structure.tablas.Field;
 
 /**

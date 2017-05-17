@@ -1,5 +1,7 @@
 package IO.DB.DAO;
 
+import IO.DB.DAO.utils.QueryBuilder;
+import IO.DB.DAO.utils.QueryField;
 import IO.DB.structure.tablas.Table_MervalPosition;
 import evolutionAnalysis.MervalPosition;
 
@@ -11,20 +13,22 @@ import java.util.ArrayList;
 /**
  * Created by Matías on 29/04/2017.
  */
-public class DAOMervalPosition {
+public class DAOMervalPosition extends DAO{
 
     private static Table_MervalPosition table = Table_MervalPosition.getInstance();
 
-    public static void doInsert(MervalPosition mervalPosition, Connection connection) throws SQLException {
-        String insertionStatement = getInsertionQuery(mervalPosition);
-
-        PreparedStatement preparedStatement = connection.prepareStatement(insertionStatement);
-        preparedStatement.execute();
+    public static ArrayList<MervalPosition> selectAllMervalPositions(){
+        
     }
 
-    public static void doInsert(ArrayList<MervalPosition> mervalPositions, Connection connection) throws SQLException {
+    public static void insert(MervalPosition mervalPosition, Connection connection) throws SQLException {
+        String insertionStatement = getInsertionQuery(mervalPosition);
+        doInsert(insertionStatement, connection);
+    }
+
+    public static void insert(ArrayList<MervalPosition> mervalPositions, Connection connection) throws SQLException {
         for(MervalPosition mervalPosition : mervalPositions){
-            doInsert(mervalPosition, connection);
+            insert(mervalPosition, connection);
         }
     }
 
@@ -38,6 +42,6 @@ public class DAOMervalPosition {
         fields.add(new QueryField(table.getMinimum(), mervalPosition.getMinimum()));
         fields.add(new QueryField(table.getVariation(), mervalPosition.getVariation()));
 
-        return DAOHelper.getInsertionQuery(fields, table.getTableName());
+        return QueryBuilder.getInsertionQuery(fields, table.getTableName());
     }
 }

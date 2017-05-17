@@ -1,4 +1,4 @@
-package IO.DB.DAO.condition;
+package IO.DB.DAO.utils.condition;
 
 /**
  * Created by matias on 17/05/17.

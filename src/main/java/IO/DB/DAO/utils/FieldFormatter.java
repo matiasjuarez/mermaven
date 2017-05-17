@@ -1,4 +1,4 @@
-package IO.DB.DAO;
+package IO.DB.DAO.utils;
 
 import IO.DB.structure.tablas.Field;
 
