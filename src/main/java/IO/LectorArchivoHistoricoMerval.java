@@ -1,6 +1,6 @@
 package IO;
 
-import analisisEvolucion.PosicionMerval;
+import evolutionAnalysis.MervalPosition;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.Row;
@@ -27,9 +27,9 @@ public class LectorArchivoHistoricoMerval {
     private int posicionMaximo = 4;
     private int posicionMinimo = 5;
 
-    public ArrayList<PosicionMerval> leerArchivoHistoricoMerval(String url) throws Exception {
+    public ArrayList<MervalPosition> leerArchivoHistoricoMerval(String url) throws Exception {
 
-        ArrayList<PosicionMerval> posicionesMerval = new ArrayList<>();
+        ArrayList<MervalPosition> posicionesMerval = new ArrayList<>();
 
         SpreadsheetDocument archivo = SpreadsheetDocument.loadDocument(url);
 
@@ -41,26 +41,26 @@ public class LectorArchivoHistoricoMerval {
 
             Row fila = filas.get(i);
 
-            PosicionMerval posicionMerval = cargarNuevaPosicionConValoresDeFila(fila);
+            MervalPosition mervalPosition = cargarNuevaPosicionConValoresDeFila(fila);
 
-            posicionesMerval.add(posicionMerval);
+            posicionesMerval.add(mervalPosition);
 
         }
 
         return posicionesMerval;
     }
 
-    private PosicionMerval cargarNuevaPosicionConValoresDeFila(Row fila){
-        PosicionMerval posicionMerval = new PosicionMerval();
+    private MervalPosition cargarNuevaPosicionConValoresDeFila(Row fila){
+        MervalPosition mervalPosition = new MervalPosition();
 
-        extraerFecha(posicionMerval, fila);
-        extraerValorCierre(posicionMerval, fila);
-        extraerValorApertura(posicionMerval, fila);
-        extraerVariacion(posicionMerval, fila);
-        extraerMinimo(posicionMerval, fila);
-        extraerMaximo(posicionMerval, fila);
+        extraerFecha(mervalPosition, fila);
+        extraerValorCierre(mervalPosition, fila);
+        extraerValorApertura(mervalPosition, fila);
+        extraerVariacion(mervalPosition, fila);
+        extraerMinimo(mervalPosition, fila);
+        extraerMaximo(mervalPosition, fila);
 
-        return posicionMerval;
+        return mervalPosition;
     }
 
     private float parsearNumeroLeido(String numero){
@@ -85,7 +85,7 @@ public class LectorArchivoHistoricoMerval {
         return numeroConvertido;
     }
 
-    private void extraerFecha(PosicionMerval posicionMerval, Row fila){
+    private void extraerFecha(MervalPosition mervalPosition, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionFecha);
 
         Date fecha = null;
@@ -95,42 +95,42 @@ public class LectorArchivoHistoricoMerval {
             e.printStackTrace();
         }
 
-        posicionMerval.setFecha(fecha);
+        mervalPosition.setDate(fecha);
     }
 
-    private  void extraerValorCierre(PosicionMerval posicionMerval, Row fila){
+    private  void extraerValorCierre(MervalPosition mervalPosition, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionCierre);
         float valorCierre = parsearNumeroLeido(valorCelda);
 
-        posicionMerval.setCierre(valorCierre);
+        mervalPosition.setClosing(valorCierre);
     }
 
-    private void extraerValorApertura(PosicionMerval posicionMerval, Row fila){
+    private void extraerValorApertura(MervalPosition mervalPosition, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionApertura);
         float valorApertura = parsearNumeroLeido(valorCelda);
 
-        posicionMerval.setApertura(valorApertura);
+        mervalPosition.setOpening(valorApertura);
     }
 
-    private void extraerVariacion(PosicionMerval posicionMerval, Row fila){
+    private void extraerVariacion(MervalPosition mervalPosition, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionVariacion);
         float valorVariacion = parsearNumeroLeido(valorCelda);
 
-        posicionMerval.setVariacionPorcentual(valorVariacion);
+        mervalPosition.setVariation(valorVariacion);
     }
 
-    private void extraerMinimo(PosicionMerval posicionMerval, Row fila){
+    private void extraerMinimo(MervalPosition mervalPosition, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionMinimo);
         float valorMinimo = parsearNumeroLeido(valorCelda);
 
-        posicionMerval.setMinimo(valorMinimo);
+        mervalPosition.setMinimum(valorMinimo);
     }
 
-    private void extraerMaximo(PosicionMerval posicionMerval, Row fila){
+    private void extraerMaximo(MervalPosition mervalPosition, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, posicionMaximo);
         float valorMaximo = parsearNumeroLeido(valorCelda);
 
-        posicionMerval.setMaximo(valorMaximo);
+        mervalPosition.setMaximum(valorMaximo);
     }
 
     private String obtenerValorDeCelda(Row fila, int posicion){

@@ -2,8 +2,8 @@ package matias.inversor;
 
 import IO.LectorArchivoHistoricoMerval;
 import IO.VariacionFondoDAO;
-import analisisEvolucion.AnalizadorBasico;
-import analisisEvolucion.PosicionMerval;
+import evolutionAnalysis.AnalizadorBasico;
+import evolutionAnalysis.MervalPosition;
 import conceptos.fondos.VariacionFondo;
 import simulacion.simuladores.ideasViejas.AnalizadorResultados;
 import simulacion.simuladores.ideasViejas.PresentadorResultados;
@@ -34,7 +34,7 @@ public class App
 
         LectorArchivoHistoricoMerval lector = new LectorArchivoHistoricoMerval();
 
-        ArrayList<PosicionMerval> posicionesMerval = lector.leerArchivoHistoricoMerval(url);
+        ArrayList<MervalPosition> posicionesMerval = lector.leerArchivoHistoricoMerval(url);
 
         AnalizadorBasico analizadorBasico = new AnalizadorBasico(posicionesMerval);
 
