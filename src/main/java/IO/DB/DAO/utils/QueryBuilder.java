@@ -2,6 +2,7 @@ package IO.DB.DAO.utils;
 
 import IO.DB.DAO.utils.condition.Condition;
 import IO.DB.structure.tablas.Field;
+import utilidades.StringHelper;
 
 import java.util.ArrayList;
 
@@ -9,41 +10,74 @@ import java.util.ArrayList;
  * Created by matias on 16/05/17.
  */
 public class QueryBuilder {
+    private static final String SELECT = "SELECT";
+    private static final String FROM = "FROM";
+    private static final String WHERE = "WHERE";
+    private static final String INSERT = "INSERT";
+    private static final String INTO = "INTO";
+    private static final String VALUES = "VALUES";
 
-    public static String getSelectQuery(ArrayList<Field> fields, Condition condition, String tableName){
-        StringBuilder statement = new StringBuilder();
-        statement.append("SELECT ");
-        statement.append(getFieldNamesSeparatedByComma_Field(fields));
-        statement.append(" FROM ");
-        statement.append(tableName);
-        statement.append(" ");
-        statement.append(buildWhereCondition(condition));
-        statement.append(";");
+    /**
+     * Builds up a select query.
+     * @param fields - The fields we want to select
+     * @param condition - The condition in the where clause
+     * @param tableName - The table we need
+     * @return a select query.
+     */
+    public static String getSelectQuery(ArrayList<QueryField> fields, Condition condition, String tableName){
+        String statement = StringHelper.mixStrings(" ",
+                SELECT,
+                getFieldNamesSeparatedByComma_QueryField(fields),
+                FROM,
+                tableName,
+                buildWhereCondition(condition));
 
-        return statement.toString();
+        return finishStatementWithSemicolon(statement);
     }
 
+    /**
+     * Builds the condition of a statement.
+     * @param condition
+     * @return
+     */
     private static String buildWhereCondition(Condition condition){
-        StringBuilder builder = new StringBuilder();
-        builder.append("WHERE ");
-        builder.append(condition.toString());
-        return builder.toString();
+        if(condition == null){
+            return "";
+        }
+
+        return StringHelper.
+                mixStrings(" ",
+                        WHERE,
+                        condition.getStringRepresentation());
     }
 
+    /**
+     * Builds an insert query based on the values and dataTypes of the fields
+     * and the name of the table.
+     * @param fields - The fields into which we want to insert values
+     * @param tableName - The goal table
+     * @return the insert query
+     */
     public static String getInsertionQuery(ArrayList<QueryField> fields, String tableName){
-        StringBuilder statement = new StringBuilder();
-        statement.append("INSERT INTO ");
-        statement.append(tableName);
-        statement.append("(");
-        statement.append(getFieldNamesSeparatedByComma_QueryField(fields));
-        statement.append(") ");
-        statement.append("VALUES(");
-        statement.append(getInsertionQueryValues(fields));
-        statement.append(");");
-
-        return statement.toString();
+        String statement = StringHelper.mixStrings(" ",
+                INSERT,
+                INTO,
+                tableName,
+                StringHelper.encloseString(getFieldNamesSeparatedByComma_QueryField(fields), StringHelper.EncloserElement.PARENTHESIS),
+                VALUES,
+                StringHelper.encloseString(getInsertionQueryValues(fields), StringHelper.EncloserElement.PARENTHESIS));
+        return finishStatementWithSemicolon(statement);
     }
 
+    private static String finishStatementWithSemicolon(String statement){
+        return statement + ";";
+    }
+
+    /**
+     * Builds up a String with the names of the QueryField objects.
+     * @param queryFields
+     * @return a String with the name of the QueryField objects separated by commas
+     */
     private static String getFieldNamesSeparatedByComma_QueryField(ArrayList<QueryField> queryFields){
         ArrayList<Field> fields = new ArrayList<>();
 
@@ -54,25 +88,32 @@ public class QueryBuilder {
         return getFieldNamesSeparatedByComma_Field(fields);
     }
 
+    /**
+     * Builds up a String with the names of the Field objects.
+     * @param fields
+     * @return a String with the name of the Field objects separated by commas
+     */
     private static String getFieldNamesSeparatedByComma_Field(ArrayList<Field> fields){
-        StringBuilder fieldsBuilder = new StringBuilder();
+        ArrayList<String> fieldNames = new ArrayList<>();
         for(Field field : fields){
-            fieldsBuilder.append(field.getName());
-            fieldsBuilder.append(",");
+            fieldNames.add(field.getName());
         }
 
-        String fieldString = fieldsBuilder.toString();
-        return fieldString.substring(0, fieldString.length() - 1);
+        return StringHelper.mixStrings(",", fieldNames);
     }
 
+    /**
+     * Builds up a String with the values of the QueryField objects
+     * inside the ArrayList separated by commas.
+     * @param fields
+     * @return the values of the QueryField objects separated by comma
+     */
     private static String getInsertionQueryValues(ArrayList<QueryField> fields){
-        StringBuilder valuesBuilder = new StringBuilder();
+        ArrayList<String> values = new ArrayList<>();
         for(QueryField field : fields){
-            valuesBuilder.append(FieldFormatter.formatField(field));
-            valuesBuilder.append(",");
+            values.add(FieldFormatter.formatField(field));
         }
 
-        String valuesString = valuesBuilder.toString();
-        return valuesString.substring(0, valuesString.length() - 1);
+        return StringHelper.mixStrings(",", values);
     }
 }

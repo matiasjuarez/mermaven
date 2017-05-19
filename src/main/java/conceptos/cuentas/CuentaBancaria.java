@@ -1,7 +1,7 @@
 package conceptos.cuentas;
 
 import conceptos.Moneda;
-import utilidades.ManejadorCadenas;
+import utilidades.StringHelper;
 
 /**
  *
@@ -39,7 +39,7 @@ public class CuentaBancaria extends CuentaAdministrativa{
             sufijoMoneda = sufijoDolares;
         }
 
-        String idCuenta = ManejadorCadenas.combinarCadenas(getIdCuenta(), sufijoMoneda, separador);
+        String idCuenta = StringHelper.mixStrings(separador, getIdCuenta(), sufijoMoneda);
 
         CajaDeAhorro cajaDeAhorro = new CajaDeAhorro(idCuenta, moneda);
 

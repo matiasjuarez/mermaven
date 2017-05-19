@@ -18,7 +18,7 @@ public class DAOMervalPosition extends DAO{
     private static Table_MervalPosition table = Table_MervalPosition.getInstance();
 
     public static ArrayList<MervalPosition> selectAllMervalPositions(){
-        
+        return null;
     }
 
     public static void insert(MervalPosition mervalPosition, Connection connection) throws SQLException {

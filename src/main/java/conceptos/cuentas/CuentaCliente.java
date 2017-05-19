@@ -1,6 +1,6 @@
 package conceptos.cuentas;
 
-import utilidades.ManejadorCadenas;
+import utilidades.StringHelper;
 
 /**
  * Created by Matías on 14/04/2017.
@@ -24,14 +24,14 @@ public class CuentaCliente extends CuentaAdministrativa{
 
     private void crearCuentaBancaria(){
         String idCuentaBancaria =
-                ManejadorCadenas.combinarCadenas(getIdCuenta(), sufijoCuentaBancaria, separador);
+                StringHelper.mixStrings(separador, getIdCuenta(), sufijoCuentaBancaria);
 
         this.cuentaBancaria = new CuentaBancaria(idCuentaBancaria);
     }
 
     private void crearCuentaFondos(){
         String idCuentaFondos =
-                ManejadorCadenas.combinarCadenas(getIdCuenta(), sufijoCuentaFondos, separador);
+                StringHelper.mixStrings(separador, getIdCuenta(), sufijoCuentaFondos);
 
         this.cuentaFondos = new CuentaFondos(idCuentaFondos);
     }

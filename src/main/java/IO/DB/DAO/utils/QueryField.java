@@ -7,8 +7,7 @@ import IO.DB.structure.tablas.Field;
  */
 public class QueryField {
     private Field field;
-    private Object currentValue;
-    private Object newValue;
+    private Object value;
 
     public Field getField() {
         return field;
@@ -18,20 +17,12 @@ public class QueryField {
         this.field = field;
     }
 
-    public Object getCurrentValue() {
-        return currentValue;
+    public Object getValue() {
+        return value;
     }
 
-    public void setCurrentValue(Object currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public Object getNewValue() {
-        return newValue;
-    }
-
-    public void setNewValue(Object newValue) {
-        this.newValue = newValue;
+    public void setValue(Object value) {
+        this.value = value;
     }
 
     public QueryField(){}
@@ -40,8 +31,8 @@ public class QueryField {
         this(field, null);
     }
 
-    public QueryField(Field field, Object currentValue){
+    public QueryField(Field field, Object value){
         this.field = field;
-        this.currentValue = currentValue;
+        this.value = value;
     }
 }

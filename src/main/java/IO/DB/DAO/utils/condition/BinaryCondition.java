@@ -1,5 +1,7 @@
 package IO.DB.DAO.utils.condition;
 
+import utilidades.StringHelper;
+
 /**
  * Created by matias on 17/05/17.
  */
@@ -7,6 +9,7 @@ public class BinaryCondition extends Condition{
     private Condition firstCondition;
     private Condition secondCondition;
     private OPERATOR operator;
+    // This field is used to determine if we have to surround the result string of this condition with parenthesis
     private boolean group;
 
     public BinaryCondition(Condition firstCondition, Condition secondCondition, OPERATOR operator){
@@ -22,21 +25,15 @@ public class BinaryCondition extends Condition{
 
     @Override
     protected String buildStringRepresentation() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(firstCondition.getStringRepresentation());
-        builder.append(" ");
-        builder.append(operator.toString());
-        builder.append(" ");
-        builder.append(secondCondition.getStringRepresentation());
-
-        String result = builder.toString();
+        String result =
+                StringHelper.mixStrings(" ",
+                        firstCondition.getStringRepresentation(),
+                        operator.toString(),
+                        secondCondition.getStringRepresentation());
 
         if(this.group){
-            StringBuilder groupBuilder = new StringBuilder();
-            groupBuilder.append("(");
-            groupBuilder.append(result);
-            groupBuilder.append(")");
-            result = groupBuilder.toString();
+            result = StringHelper.
+                    encloseString(result, StringHelper.EncloserElement.PARENTHESIS);
         }
 
         return result;
