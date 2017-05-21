@@ -14,8 +14,8 @@ public class LoginPage {
     private final String LOC_BTN_INGRESAR = "//*[@id=\"btn1\"]";
 
     private String dni = "dni";
-    private String clave = "clave";
-    private String usuario = "usuario";
+    private String clave = "pass";
+    private String usuario = "user";
     private int timeout = 10;
 
     public void operate(WebDriver webDriver){
@@ -26,7 +26,7 @@ public class LoginPage {
 
         txtDni.sendKeys(dni);
         txtClave.sendKeys(clave);
-        txtUsuario.sendKeys(clave);
+        txtUsuario.sendKeys(usuario);
         btnIngresar.click();
     }
 }

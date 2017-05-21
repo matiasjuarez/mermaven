@@ -13,12 +13,14 @@ public class SantanderNavigation {
     private WebDriver webDriver;
     private StartingPage startingPage;
     private LoginPage loginPage;
+    private ClienteAccountPage clienteAccountPage;
     private ArrayList<String> windowHandlers;
 
     public SantanderNavigation(){
         webDriver = WebDriverInitializer.getDefaultWebDriver();
         startingPage = new StartingPage();
         loginPage = new LoginPage();
+        clienteAccountPage = new ClienteAccountPage();
     }
 
     public void operate(){
@@ -29,5 +31,9 @@ public class SantanderNavigation {
         webDriver.switchTo().window(windowHandlers.get(1));
 
         loginPage.operate(webDriver);
+
+        NavigationUtils.delay(10);
+
+        clienteAccountPage.operate(webDriver);
     }
 }
