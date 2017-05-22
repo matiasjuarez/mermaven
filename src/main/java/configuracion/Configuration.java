@@ -7,6 +7,7 @@ public class Configuration {
     private static Configuration configuration;
 
     private String pathToDatabases = "./src/main/Datos/DB/";
+    private String userData = "/home/matias/Documents/bdata";
 
     private Configuration(){}
 
@@ -20,5 +21,9 @@ public class Configuration {
 
     public String getPathToDatabases(){
         return pathToDatabases;
+    }
+
+    public String getPathToUserData(){
+        return userData;
     }
 }

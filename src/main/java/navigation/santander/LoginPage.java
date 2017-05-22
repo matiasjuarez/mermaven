@@ -1,5 +1,6 @@
 package navigation.santander;
 
+import navigation.UserDataReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import utilidades.NavigationUtils;
@@ -17,6 +18,15 @@ public class LoginPage {
     private String clave = "pass";
     private String usuario = "user";
     private int timeout = 10;
+
+    private String userDataURL;
+
+    public LoginPage(String userDataURL){
+        UserDataReader dataReader = new UserDataReader(userDataURL);
+        dni = dataReader.getDni();
+        clave = dataReader.getPass();
+        usuario = dataReader.getUser();
+    }
 
     public void operate(WebDriver webDriver){
         WebElement txtDni = NavigationUtils.waitForElement(webDriver, LOC_TXT_DNI, timeout);

@@ -1,5 +1,6 @@
 package navigation.santander;
 
+import configuracion.Configuration;
 import navigation.webdrivers.WebDriverInitializer;
 import org.openqa.selenium.WebDriver;
 import utilidades.NavigationUtils;
@@ -19,7 +20,7 @@ public class SantanderNavigation {
     public SantanderNavigation(){
         webDriver = WebDriverInitializer.getDefaultWebDriver();
         startingPage = new StartingPage();
-        loginPage = new LoginPage();
+        loginPage = new LoginPage(Configuration.getInstance().getPathToUserData());
         clienteAccountPage = new ClienteAccountPage();
     }
 
