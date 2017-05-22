@@ -1,5 +1,6 @@
 package matias.inversor.navigation;
 
+import navigation.macro.MacroNavigation;
 import navigation.santander.SantanderNavigation;
 import org.junit.Test;
 
@@ -10,7 +11,10 @@ public class Navigation {
 
     @Test
     public void testNavigation(){
-        SantanderNavigation santanderNavigation = new SantanderNavigation();
-        santanderNavigation.operate();
+        //SantanderNavigation santanderNavigation = new SantanderNavigation();
+        //santanderNavigation.operate();
+
+        MacroNavigation macroNavigation = new MacroNavigation();
+        macroNavigation.operate();
     }
 }

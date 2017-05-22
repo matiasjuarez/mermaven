@@ -24,7 +24,7 @@ public class NavigationUtils {
 
     public static WebElement waitForElement(WebDriver driver, String xpath, int seconds){
         WebDriverWait wait = new WebDriverWait(driver, seconds);
-        return wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
     public static ArrayList<String> getWindowsHandlers(WebDriver driver){

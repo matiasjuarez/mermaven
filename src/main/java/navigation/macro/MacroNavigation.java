@@ -1,4 +1,4 @@
-package navigation.santander;
+package navigation.macro;
 
 import configuracion.Configuration;
 import navigation.webdrivers.WebDriverInitializer;
@@ -10,31 +10,23 @@ import java.util.ArrayList;
 /**
  * Created by matias on 21/05/17.
  */
-public class SantanderNavigation {
+public class MacroNavigation {
     private WebDriver webDriver;
-    private StartingPage startingPage;
     private LoginPage loginPage;
     private ClienteAccountPage clienteAccountPage;
     private ArrayList<String> windowHandlers;
 
-    public SantanderNavigation(){
+    public MacroNavigation(){
         webDriver = WebDriverInitializer.getDefaultWebDriver();
-        startingPage = new StartingPage();
-        loginPage = new LoginPage(Configuration.getInstance().getPathToUserDataSan());
+        loginPage = new LoginPage(Configuration.getInstance().getPathToUserDataMac());
         clienteAccountPage = new ClienteAccountPage();
     }
 
     public void operate(){
-        startingPage.operate(webDriver);
-
-        NavigationUtils.delay(10);
-        windowHandlers = NavigationUtils.getWindowsHandlers(webDriver);
-        webDriver.switchTo().window(windowHandlers.get(1));
-
         loginPage.operate(webDriver);
 
-        NavigationUtils.delay(10);
+        //NavigationUtils.delay(10);
 
-        clienteAccountPage.operate(webDriver);
+        //clienteAccountPage.operate(webDriver);
     }
 }
