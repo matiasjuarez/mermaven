@@ -8,73 +8,40 @@ import utilidades.NavigationUtils;
  * Created by matias on 21/05/17.
  */
 public class ClienteAccountPage {
-    private final String LOC_FRM_INVERSIONES = "//*[@id=\"framePrincipal\"]/frame";
-    private final String LOC_LNK_INVERSIONES = "//*[@id=\"inversiones\"]";
+    private final String LOC_FRM_MENU = "/html/frameset/frameset/frameset/frameset/frame[2]";
+    private final String LOC_LNK_MENU_INVERSIONES = "//*[@id=\"mainLayer\"]/table[5]/tbody/tr/td/div/span/table/tbody/tr/td[1]/a";
+    private final String LOC_LNK_MENU_SUSCRIPCION_RESCATE = "//*[@id='menu5']/table/tbody/tr/td/div/span/table/tbody/tr/td[1]/a";
 
-    private final String LOC_FRM_EXTERNAL_FONDOS = "//*[@id=\"frame2\"]";
-    private final String LOC_FRM_INTERNAL_FONDOS = "/html/frameset/frame[1]";
-    private final String LOC_LNK_FONDOS = "//*[@id=\"fondos_2\"]";
-
-    private final String LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS = "/html/frameset/frame[2]";
-    private final String LOC_LNK_COTIZACIONES = "//*[@id=\"cotizaciones_3\"]";
-    private final String LOC_LNK_TENENCIAS = "//*[@id=\"tenencia_1\"]";
-
+    private final String LOC_FRM_MAIN_CONTENT = "/html/frameset/frameset/frameset/frame";
+    private final String LOC_LNK_SUSCRIPCION_RESCATE_OPERATE = "/html/body/form/center/table/tbody/tr[2]/td/center/center[7]/table/tbody/tr[1]/td[1]/a";
 
     private int timeout = 10;
 
     public void operate(WebDriver webDriver){
         clickInversiones(webDriver);
 
-        webDriver.switchTo().defaultContent();
         NavigationUtils.delay(5);
+        webDriver.switchTo().defaultContent();
 
         clickFondos(webDriver);
-
-        webDriver.switchTo().defaultContent();
-        NavigationUtils.delay(5);
-
-        clickCotizaciones(webDriver);
-
-        webDriver.switchTo().defaultContent();
-        NavigationUtils.delay(5);
-
-        clickTenencias(webDriver);
     }
 
     public void clickInversiones(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_INVERSIONES);
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_MENU, timeout);
 
-        WebElement lnkInversiones = NavigationUtils.waitForElement(webDriver, LOC_LNK_INVERSIONES, timeout);
+        WebElement lnkInversiones =
+                NavigationUtils.waitForElement(webDriver, LOC_LNK_MENU_INVERSIONES, timeout);
         lnkInversiones.click();
+
+        WebElement lnkSuscripcionRescate =
+                NavigationUtils.waitForElement(webDriver, LOC_LNK_MENU_SUSCRIPCION_RESCATE, timeout);
+        lnkSuscripcionRescate.click();
     }
 
     public void clickFondos(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS);
-        changeFrame(webDriver, LOC_FRM_INTERNAL_FONDOS);
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_MAIN_CONTENT, timeout);
 
-        WebElement lnkFondos = NavigationUtils.waitForElement(webDriver, LOC_LNK_FONDOS, timeout);
+        WebElement lnkFondos = NavigationUtils.waitForElement(webDriver, LOC_LNK_SUSCRIPCION_RESCATE_OPERATE, timeout);
         lnkFondos.click();
-    }
-
-    private void clickCotizaciones(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS);
-        changeFrame(webDriver, LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS);
-
-        WebElement lnkCotizaciones = NavigationUtils.waitForElement(webDriver, LOC_LNK_COTIZACIONES, timeout);
-        lnkCotizaciones.click();
-    }
-
-    private void clickTenencias(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS);
-        changeFrame(webDriver, LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS);
-
-        WebElement lnkTenencias = NavigationUtils.waitForElement(webDriver, LOC_LNK_TENENCIAS, timeout);
-        lnkTenencias.click();
-    }
-
-    private void changeFrame(WebDriver webDriver, String frameXpath){
-        webDriver.switchTo().frame(
-                NavigationUtils.waitForElement(webDriver, frameXpath, timeout)
-        );
     }
 }

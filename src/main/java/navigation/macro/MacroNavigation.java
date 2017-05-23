@@ -25,8 +25,9 @@ public class MacroNavigation {
     public void operate(){
         loginPage.operate(webDriver);
 
-        //NavigationUtils.delay(10);
+        NavigationUtils.delay(10);
+        webDriver.switchTo().defaultContent();
 
-        //clienteAccountPage.operate(webDriver);
+        clienteAccountPage.operate(webDriver);
     }
 }

@@ -42,39 +42,36 @@ public class ClienteAccountPage {
     }
 
     public void clickInversiones(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_INVERSIONES);
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_INVERSIONES, timeout);
 
         WebElement lnkInversiones = NavigationUtils.waitForElement(webDriver, LOC_LNK_INVERSIONES, timeout);
         lnkInversiones.click();
     }
 
     public void clickFondos(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS);
-        changeFrame(webDriver, LOC_FRM_INTERNAL_FONDOS);
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS, timeout);
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_INTERNAL_FONDOS, timeout);
 
         WebElement lnkFondos = NavigationUtils.waitForElement(webDriver, LOC_LNK_FONDOS, timeout);
         lnkFondos.click();
     }
 
     private void clickCotizaciones(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS);
-        changeFrame(webDriver, LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS);
+        navigateToFrameInternalCotizacionesTenencias(webDriver);
 
         WebElement lnkCotizaciones = NavigationUtils.waitForElement(webDriver, LOC_LNK_COTIZACIONES, timeout);
         lnkCotizaciones.click();
     }
 
     private void clickTenencias(WebDriver webDriver){
-        changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS);
-        changeFrame(webDriver, LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS);
+        navigateToFrameInternalCotizacionesTenencias(webDriver);
 
         WebElement lnkTenencias = NavigationUtils.waitForElement(webDriver, LOC_LNK_TENENCIAS, timeout);
         lnkTenencias.click();
     }
 
-    private void changeFrame(WebDriver webDriver, String frameXpath){
-        webDriver.switchTo().frame(
-                NavigationUtils.waitForElement(webDriver, frameXpath, timeout)
-        );
+    private void navigateToFrameInternalCotizacionesTenencias(WebDriver webDriver){
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS, timeout);
+        NavigationUtils.changeFrame(webDriver, LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS, timeout);
     }
 }

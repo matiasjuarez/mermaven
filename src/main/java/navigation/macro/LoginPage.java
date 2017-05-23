@@ -22,6 +22,7 @@ public class LoginPage {
     private String dni = "dni";
     private String clave = "pass";
     private String usuario = "user";
+    private String dniType = "01";
     private int timeout = 10;
 
     public LoginPage(String userDataURL){
@@ -42,7 +43,7 @@ public class LoginPage {
         WebElement btnIngresar = NavigationUtils.waitForElement(webDriver, LOC_BTN_INGRESAR, timeout);
 
         Select selectElement = new Select(selectDniType);
-        selectElement.selectByValue("01");
+        selectElement.selectByValue(dniType);
 
         txtDni.sendKeys(dni);
         txtClave.sendKeys(clave);
