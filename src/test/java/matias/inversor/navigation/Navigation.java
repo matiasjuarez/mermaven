@@ -11,10 +11,10 @@ public class Navigation {
 
     @Test
     public void testNavigation(){
-        //SantanderNavigation santanderNavigation = new SantanderNavigation();
-        //santanderNavigation.operate();
+        SantanderNavigation santanderNavigation = new SantanderNavigation();
+        santanderNavigation.goToCotizaciones();
 
-        MacroNavigation macroNavigation = new MacroNavigation();
-        macroNavigation.operate();
+        //MacroNavigation macroNavigation = new MacroNavigation();
+        //macroNavigation.operate();
     }
 }

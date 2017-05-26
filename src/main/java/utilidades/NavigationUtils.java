@@ -1,8 +1,7 @@
 package utilidades;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import IO.Logger;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -54,6 +53,12 @@ public class NavigationUtils {
         return windowsHandlers;
     }
 
+    public static void changeFocusToLastOpenedWindow(WebDriver driver){
+        ArrayList<String> windowsHandlers = getWindowsHandlers(driver);
+
+        driver.switchTo().window(windowsHandlers.get(windowsHandlers.size() - 1));
+    }
+
     /**
      * Changes the focus to a new frame.
      * @param webDriver - The webDriver that's being used to navigate
@@ -64,5 +69,24 @@ public class NavigationUtils {
         webDriver.switchTo().frame(
                 waitForElement(webDriver, frameXpath, seconds)
         );
+    }
+
+    /**
+     * Waits for a webpage finishes its loading.
+     * @param driver
+     * @param timeOutInSeconds
+     */
+    public static boolean waitForPageLoad(WebDriver driver, int timeOutInSeconds) {
+        try{
+            new WebDriverWait(driver, timeOutInSeconds).until((ExpectedCondition<Boolean>) wd ->
+                    ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+
+            return true;
+        }
+        catch(TimeoutException te){
+            Logger.getInstance().log("The page didn't load in time: " + driver.getCurrentUrl());
+
+            return false;
+        }
     }
 }
