@@ -27,7 +27,7 @@ public class ClienteAccountPage {
     }
 
     public void clickInversiones(WebDriver webDriver){
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_MENU, timeout);
+        NavigationUtils.changeToFrame(webDriver, LOC_FRM_MENU, timeout);
 
         WebElement lnkInversiones =
                 NavigationUtils.waitForElement(webDriver, LOC_LNK_MENU_INVERSIONES, timeout);
@@ -39,7 +39,7 @@ public class ClienteAccountPage {
     }
 
     public void clickFondos(WebDriver webDriver){
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_MAIN_CONTENT, timeout);
+        NavigationUtils.changeToFrame(webDriver, LOC_FRM_MAIN_CONTENT, timeout);
 
         WebElement lnkFondos = NavigationUtils.waitForElement(webDriver, LOC_LNK_SUSCRIPCION_RESCATE_OPERATE, timeout);
         lnkFondos.click();

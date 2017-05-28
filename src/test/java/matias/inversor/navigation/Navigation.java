@@ -13,6 +13,7 @@ public class Navigation {
     public void testNavigation(){
         SantanderNavigation santanderNavigation = new SantanderNavigation();
         santanderNavigation.goToCotizaciones();
+        santanderNavigation.goToTenencias();
 
         //MacroNavigation macroNavigation = new MacroNavigation();
         //macroNavigation.operate();

@@ -1,6 +1,7 @@
 package utilidades;
 
 import IO.Logger;
+import navigation.Frame;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -65,10 +66,32 @@ public class NavigationUtils {
      * @param frameXpath - The xPath to the frame
      * @param seconds - The timeout in seconds
      */
-    public static void changeFrame(WebDriver webDriver, String frameXpath, int seconds){
+    public static void changeToFrame(WebDriver webDriver, String frameXpath, int seconds){
         webDriver.switchTo().frame(
                 waitForElement(webDriver, frameXpath, seconds)
         );
+    }
+
+    public static void changeToFrame(WebDriver webDriver, Frame frame, int timeoutInSeconds){
+        changeToFrame(webDriver, frame.getXpath(), timeoutInSeconds);
+    }
+
+    /**
+     * This methods tries to get to the frame sent as parameter going through the chain of
+     * parent frames.
+     * @param frame - The frame we want to go to
+     * @param driver - The WebDriver
+     * @param timeoutInSeconds - Time to wait for each frame to be ready
+     */
+    public static void goToFrameThroughParents(Frame frame, WebDriver driver, int timeoutInSeconds){
+        driver.switchTo().defaultContent();
+
+        ArrayList<Frame> parents = frame.getAllAscendants();
+        for(Frame parentFrame : parents){
+            changeToFrame(driver, parentFrame, timeoutInSeconds);
+        }
+
+        changeToFrame(driver, frame, timeoutInSeconds);
     }
 
     /**

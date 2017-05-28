@@ -1,6 +1,7 @@
 package navigation.santander.pages;
 
 import IO.Logger;
+import navigation.Frame;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -11,39 +12,99 @@ import utilidades.NavigationUtils;
  * Created by matias on 25/05/17.
  */
 public class ClientAccountPage {
-    private static final String LOC_FRM_INVERSIONES = "//*[@id=\"framePrincipal\"]/frame";
-    private static final String LOC_LNK_INVERSIONES = "//*[@id=\"inversiones\"]";
 
-    private static final String LOC_FRM_EXTERNAL_FONDOS = "//*[@id=\"frame2\"]";
-    private static final String LOC_FRM_INTERNAL_FONDOS = "/html/frameset/frame[1]";
-    private static final String LOC_LNK_FONDOS = "//*[@id=\"fondos_2\"]";
+    private Frame first_menu;
+    private Frame second_menu;
+    private Frame third_menu;
+    private Frame info_menu;
 
-    private static final String LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS = "/html/frameset/frame[2]";
-    private static final String LOC_LNK_COTIZACIONES = "//*[@id=\"cotizaciones_3\"]";
-    private static final String LOC_LNK_TENENCIAS = "//*[@id=\"tenencia_1\"]";
+    private final String firstMenuName = "FIRST_MENU";
+    private final String secondMenuName = "SECOND_MENU";
+    private final String thirdMenuName = "THIRD_MENU";
+    private final String infoMenuName = "INFO_MENU";
+    private final String secondLevelContainerName = "SECOND_LEVEL_CONTAINER";
 
-    private static final String LOC_DIV_ERROR_MESSAGE = "//*[@id=\"indiMsjErrorPage\"]";
-    private static final String LOC_P_ERROR_MESSAGE_CONTENT_RELATIVE = "/div/p";
+    private final String LOC_FRM_FIRST_MENU = "//*[@id=\"framePrincipal\"]/frame";
+    private final String LOC_FRM_SECOND_MENU = "/html/frameset/frame[1]";
+    private final String LOC_FRM_THIRD_MENU = "/html/frameset/frame[2]";
+    private final String LOC_FRM_INFO = "/html/frameset/frame[3]";
+    private final String LOC_FRM_SECOND_LEVEL_CONTAINER = "//*[@id=\"frame2\"]";
 
-    private static int timeout = 10;
+    private final String LOC_LNK_INVERSIONES_1 = "//*[@id=\"inversiones\"]";
+    private final String LOC_LNK_FONDOS_2 = "//*[@id=\"fondos_2\"]";
+    private final String LOC_LNK_COTIZACIONES_3 = "//*[@id=\"cotizaciones_3\"]";
+    private final String LOC_LNK_TENENCIAS_3 = "//*[@id=\"tenencia_1\"]";
 
-    public static void goToTenencias(WebDriver webDriver){
+    private final String LOC_DIV_ERROR_MESSAGE = "//*[@id=\"indiMsjErrorPage\"]";
+    private final String LOC_P_ERROR_MESSAGE_CONTENT_RELATIVE = "/div/p";
+
+    private int timeout = 10;
+
+    public ClientAccountPage(){
+        first_menu = new Frame(firstMenuName, LOC_FRM_FIRST_MENU);
+        second_menu = new Frame(secondMenuName, LOC_FRM_SECOND_MENU);
+        third_menu = new Frame(thirdMenuName, LOC_FRM_THIRD_MENU);
+        info_menu = new Frame(infoMenuName, LOC_FRM_INFO);
+
+        Frame secondLevelContainer = new Frame(secondLevelContainerName, LOC_FRM_SECOND_LEVEL_CONTAINER);
+        second_menu.setParent(secondLevelContainer);
+        third_menu.setParent(secondLevelContainer);
+        info_menu.setParent(secondLevelContainer);
+    }
+
+    private void clickInversiones(WebDriver webDriver){
+        NavigationUtils.goToFrameThroughParents(first_menu, webDriver, timeout);
+
+        WebElement lnkInversiones = NavigationUtils.waitForElement(webDriver, LOC_LNK_INVERSIONES_1, timeout);
+        lnkInversiones.click();
+    }
+
+    private void clickFondos(WebDriver webDriver){
+        NavigationUtils.goToFrameThroughParents(second_menu, webDriver, timeout);
+
+        WebElement lnkFondos = NavigationUtils.waitForElement(webDriver, LOC_LNK_FONDOS_2, timeout);
+        lnkFondos.click();
+    }
+
+    private void clickCotizaciones(WebDriver webDriver){
+        NavigationUtils.goToFrameThroughParents(third_menu, webDriver, timeout);
+
+        WebElement lnkCotizaciones = NavigationUtils.waitForElement(webDriver, LOC_LNK_COTIZACIONES_3, timeout);
+        lnkCotizaciones.click();
+    }
+
+    private void clickTenencias(WebDriver webDriver){
+        NavigationUtils.goToFrameThroughParents(third_menu, webDriver, timeout);
+
+        WebElement lnkTenencias = NavigationUtils.waitForElement(webDriver, LOC_LNK_TENENCIAS_3, timeout);
+        lnkTenencias.click();
+    }
+
+    public void goToTenencias(WebDriver webDriver){
         clickInversiones(webDriver);
         clickFondos(webDriver);
         clickTenencias(webDriver);
-    }
 
-    public static void goToCotizaciones(WebDriver webDriver){
-        clickInversiones(webDriver);
-        clickFondos(webDriver);
-        clickCotizaciones(webDriver);
+        NavigationUtils.goToFrameThroughParents(info_menu, webDriver, timeout);
 
         if(isErrorMessagePresent(webDriver)){
             Logger.getInstance().log(getErrorMessage(webDriver));
         }
     }
 
-    public static boolean isErrorMessagePresent(WebDriver webDriver){
+    public void goToCotizaciones(WebDriver webDriver){
+        clickInversiones(webDriver);
+        clickFondos(webDriver);
+        clickCotizaciones(webDriver);
+
+        NavigationUtils.goToFrameThroughParents(info_menu, webDriver, timeout);
+
+        if(isErrorMessagePresent(webDriver)){
+            Logger.getInstance().log(getErrorMessage(webDriver));
+        }
+    }
+
+    public boolean isErrorMessagePresent(WebDriver webDriver){
         try{
             getErrorMessageElement(webDriver);
             return true;
@@ -53,51 +114,14 @@ public class ClientAccountPage {
         }
     }
 
-    private static WebElement getErrorMessageElement(WebDriver webDriver){
+    private WebElement getErrorMessageElement(WebDriver webDriver){
         return NavigationUtils.waitForElement(webDriver, LOC_DIV_ERROR_MESSAGE, 5);
     }
 
-    private static String getErrorMessage(WebDriver webDriver){
+    private String getErrorMessage(WebDriver webDriver){
         WebElement divElement = getErrorMessageElement(webDriver);
         WebElement pElement = divElement.findElement(By.xpath(LOC_P_ERROR_MESSAGE_CONTENT_RELATIVE));
 
         return pElement.getText();
-    }
-
-    private static void clickInversiones(WebDriver webDriver){
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_INVERSIONES, timeout);
-
-        WebElement lnkInversiones = NavigationUtils.waitForElement(webDriver, LOC_LNK_INVERSIONES, timeout);
-        lnkInversiones.click();
-    }
-
-    private static void clickFondos(WebDriver webDriver){
-        webDriver.switchTo().defaultContent();
-
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS, timeout);
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_INTERNAL_FONDOS, timeout);
-
-        WebElement lnkFondos = NavigationUtils.waitForElement(webDriver, LOC_LNK_FONDOS, timeout);
-        lnkFondos.click();
-    }
-
-    private static void clickCotizaciones(WebDriver webDriver){
-        navigateToFrameInternalCotizacionesTenencias(webDriver);
-
-        WebElement lnkCotizaciones = NavigationUtils.waitForElement(webDriver, LOC_LNK_COTIZACIONES, timeout);
-        lnkCotizaciones.click();
-    }
-
-    private static void clickTenencias(WebDriver webDriver){
-        navigateToFrameInternalCotizacionesTenencias(webDriver);
-
-        WebElement lnkTenencias = NavigationUtils.waitForElement(webDriver, LOC_LNK_TENENCIAS, timeout);
-        lnkTenencias.click();
-    }
-
-    private static void navigateToFrameInternalCotizacionesTenencias(WebDriver webDriver){
-        webDriver.switchTo().defaultContent();
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_EXTERNAL_FONDOS, timeout);
-        NavigationUtils.changeFrame(webDriver, LOC_FRM_INTERNAL_COTIZACIONES_TENENCIAS, timeout);
     }
 }

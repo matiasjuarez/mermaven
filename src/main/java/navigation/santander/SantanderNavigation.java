@@ -18,11 +18,13 @@ public class SantanderNavigation {
     private WebDriver webDriver;
     private NavigationStatus status;
     private LoginManager loginManager;
+    private ClientAccountPage clientAccountPage;
 
     public SantanderNavigation(){
         webDriver = WebDriverInitializer.getDefaultWebDriver();
         loginManager = new LoginManager(Configuration.getInstance().getPathToUserDataSan());
         status = new NavigationStatus();
+        clientAccountPage = new ClientAccountPage();
     }
 
     public void goToTenencias(){
@@ -30,7 +32,7 @@ public class SantanderNavigation {
             goToClientAccountPage();
         }
 
-        ClientAccountPage.goToTenencias(webDriver);
+        clientAccountPage.goToTenencias(webDriver);
     }
 
     public void goToCotizaciones(){
@@ -38,7 +40,7 @@ public class SantanderNavigation {
             goToClientAccountPage();
         }
 
-        ClientAccountPage.goToCotizaciones(webDriver);
+        clientAccountPage.goToCotizaciones(webDriver);
     }
 
     public void goToStartingPage(){
