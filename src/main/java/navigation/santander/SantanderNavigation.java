@@ -82,4 +82,7 @@ public class SantanderNavigation {
         }
     }
 
+    public WebDriver getWebDriver() {
+        return webDriver;
+    }
 }
