@@ -14,5 +14,8 @@ public class DatabaseStructureInitializer {
     public static void initializeStructure() throws SQLException, InvalidTableDefinitionException {
         Database mervalAnalysisEvolution = DatabaseBuilder.buildMervalAnalysisEvolutionDB();
         mervalAnalysisEvolution.create();
+
+        Database foundInformation = DatabaseBuilder.buildFoundInformationDB();
+        foundInformation.create();
     }
 }

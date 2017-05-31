@@ -6,7 +6,6 @@ import IO.DB.structure.tablas.Table_MervalPosition;
 import evolutionAnalysis.MervalPosition;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

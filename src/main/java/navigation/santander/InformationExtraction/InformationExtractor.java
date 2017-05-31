@@ -1,8 +1,8 @@
 package navigation.santander.InformationExtraction;
 
 
-import navigation.Cotizacion;
-import navigation.Tenencia;
+import navigation.santander.InformationExtraction.processing.HoldingInformationExtraction;
+import navigation.santander.InformationExtraction.processing.QuotationInformationExtraction;
 import navigation.santander.SantanderNavigation;
 
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ public class InformationExtractor {
         navigator = new SantanderNavigation();
     }
 
-    public ArrayList<Tenencia> extractTenenciaInformation(){
+    public ArrayList<HoldingInformationExtraction> extractTenenciaInformation(){
         navigator.goToTenencias();
         return tenenciaInformationExtractor.extractTenenciaInformation(navigator.getWebDriver());
     }
 
-    public ArrayList<Cotizacion> extractCotizacionInformation(){
+    public ArrayList<QuotationInformationExtraction> extractCotizacionInformation(){
         navigator.goToCotizaciones();
         return cotizacionInformationExtractor.extractCotizacionInformation(navigator.getWebDriver());
     }
