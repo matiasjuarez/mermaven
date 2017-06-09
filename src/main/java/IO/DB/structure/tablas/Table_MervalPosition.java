@@ -64,12 +64,12 @@ public class Table_MervalPosition {
 
     public ArrayList<Field> getFields(){
         ArrayList<Field> fields = new ArrayList<>();
-        fields.add(new Field("date", Field.Type.DATE));
-        fields.add(new Field("opening", Field.Type.FLOAT));
-        fields.add(new Field("closing", Field.Type.FLOAT));
-        fields.add(new Field("maximum", Field.Type.FLOAT));
-        fields.add(new Field("minimum", Field.Type.FLOAT));
-        fields.add(new Field("variation", Field.Type.FLOAT));
+        fields.add(date);
+        fields.add(opening);
+        fields.add(closing);
+        fields.add(maximum);
+        fields.add(minimum);
+        fields.add(variation);
         return fields;
     }
 

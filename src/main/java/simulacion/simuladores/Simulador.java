@@ -47,7 +47,7 @@ public abstract class Simulador {
         str += "Fondos en los que participa: \n";
         
         for(ParticipacionFondo participacion : cliente.getCuentaCliente().getCuentaFondos().getParticipaciones()){
-            str += participacion.getFondo() + "\n";
+            str += participacion.getFund() + "\n";
         }
         
         System.out.println(str);

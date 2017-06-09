@@ -8,6 +8,7 @@ public class Field {
 
     public enum Type {
         FLOAT("FLOAT"),
+        INT("INTEGER"),
         DATE("DATE");
 
         private String name;

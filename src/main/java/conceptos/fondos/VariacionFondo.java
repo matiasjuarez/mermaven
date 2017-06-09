@@ -21,12 +21,12 @@ import java.util.Objects;
 public class VariacionFondo {
     private final Date fecha;
     private final float variacion;
-    
+
     public VariacionFondo(Date fecha, float variacion){
         this.fecha = fecha;
         this.variacion = variacion;
     }
-    
+
     public Date getFecha() {
         return fecha;
     }
@@ -34,7 +34,7 @@ public class VariacionFondo {
     public float getVariacion() {
         return variacion;
     }
-    
+
     @Override
     public int hashCode(){
         return this.fecha.hashCode();
@@ -54,7 +54,7 @@ public class VariacionFondo {
         }
         return true;
     }
-    
+
     @Override
     public String toString(){
         return Float.toString(getVariacion());

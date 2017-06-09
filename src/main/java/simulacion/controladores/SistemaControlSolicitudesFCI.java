@@ -51,7 +51,7 @@ public class SistemaControlSolicitudesFCI {
         validarNuevaSolicitud(cajaDeAhorro, participacionFondo, cuotaPartes, tipoSolicitud);
 
         Solicitud solicitud =
-                Solicitud.crearSolicitud(new Date(), cuotaPartes, participacionFondo.getFondo(), tipoSolicitud, "");
+                Solicitud.crearSolicitud(new Date(), cuotaPartes, participacionFondo.getFund(), tipoSolicitud, "");
 
         AlmacenSolicitudes.getInstance().almacenarSolicitud(solicitud);
 
@@ -80,7 +80,7 @@ public class SistemaControlSolicitudesFCI {
         ArrayList<Solicitud> solicitudesNoProcesadas = AlmacenSolicitudes.getInstance().getSolicitudesSegunEstado(Solicitud.Estado.CREADA);
 
         for(Solicitud solicitud : solicitudesNoProcesadas){
-            if(solicitud.getFondo().getName().equalsIgnoreCase(participacionFondo.getFondo().getName())){
+            if(solicitud.getFund().getName().equalsIgnoreCase(participacionFondo.getFund().getName())){
                 cuotaPartesYaSolicitadas += solicitud.getMonto().getCantidad();
             }
         }
@@ -91,7 +91,7 @@ public class SistemaControlSolicitudesFCI {
     }
 
     private void validarNuevaSuscripcion(ParticipacionFondo participacionFondo, float cuotaPartes, CajaDeAhorro cajaDeAhorro) throws ExcepcionFondosInsuficientes {
-        float valorMonetarioCuotaPartes = participacionFondo.getFondo().getValorCuotaParte().getCantidad() * cuotaPartes;
+        float valorMonetarioCuotaPartes = participacionFondo.getFund().getValorCuotaParte().getCantidad() * cuotaPartes;
 
         if(cajaDeAhorro.getCuenta().getCapital().getCantidad() < valorMonetarioCuotaPartes){
             throw new ExcepcionFondosInsuficientes("No posee dinero suficiente en su caja de ahorro para efectuar la suscripcion al FCI");
@@ -117,7 +117,7 @@ public class SistemaControlSolicitudesFCI {
             throw new ExcepcionMonedaIncompatible("La cantidad que de dinero con la que desea operar esta expresada en una moneda diferente a la moneda en la que opera el FCI");
         }
 
-        float cuotaPartes = monto.getCantidad() / participacionFondo.getFondo().getValorCuotaParte().getCantidad();
+        float cuotaPartes = monto.getCantidad() / participacionFondo.getFund().getValorCuotaParte().getCantidad();
 
         return crearSolicitudSegunCuotaPartes(cajaDeAhorro, participacionFondo, cuotaPartes, tipoSolicitud);
     }*/

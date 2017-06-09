@@ -1,7 +1,6 @@
 package navigation.santander.InformationExtraction;
 
-import navigation.Cotizacion;
-import navigation.Tenencia;
+import navigation.santander.InformationExtraction.processing.QuotationInformationExtraction;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,8 +29,8 @@ public class CotizacionInformationExtractor {
 
     private final int timeout = 10;
 
-    public ArrayList<Cotizacion> extractCotizacionInformation(WebDriver driver){
-        ArrayList<Cotizacion> cotizaciones = new ArrayList<>();
+    public ArrayList<QuotationInformationExtraction> extractCotizacionInformation(WebDriver driver){
+        ArrayList<QuotationInformationExtraction> cotizaciones = new ArrayList<>();
 
         cotizaciones.addAll(extractCotizacionInformationFromTable(LOC_TBL_PESOS, driver));
         cotizaciones.addAll(extractCotizacionInformationFromTable(LOC_TBL_DOLARES, driver));
@@ -39,20 +38,20 @@ public class CotizacionInformationExtractor {
         return cotizaciones;
     }
 
-    private ArrayList<Cotizacion> extractCotizacionInformationFromTable(String tablePrefix, WebDriver driver){
-        ArrayList<Cotizacion> cotizaciones = new ArrayList<>();
+    private ArrayList<QuotationInformationExtraction> extractCotizacionInformationFromTable(String tablePrefix, WebDriver driver){
+        ArrayList<QuotationInformationExtraction> cotizaciones = new ArrayList<>();
         int currentRow = STARTING_ROW_INFO;
 
         while(rowExists(tablePrefix, currentRow, driver)){
-            Cotizacion newCotizacion = new Cotizacion();
-            newCotizacion.setFondo(extractFoundNameFromRow(tablePrefix, currentRow, driver));
-            newCotizacion.setValor(extractInfoFromRowCol(tablePrefix, currentRow, VALOR_FECHA, driver));
-            newCotizacion.setVariacionDiaria(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_DIARIA, driver));
-            newCotizacion.setVariacion30(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_ULTIMOS_30, driver));
-            newCotizacion.setVariacion90(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_ULTIMOS_90, driver));
-            newCotizacion.setVariacion365(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_ANUAL, driver));
+            QuotationInformationExtraction newQuotationInformationExtraction = new QuotationInformationExtraction();
+            newQuotationInformationExtraction.setFund(extractFoundNameFromRow(tablePrefix, currentRow, driver));
+            newQuotationInformationExtraction.setValue(extractInfoFromRowCol(tablePrefix, currentRow, VALOR_FECHA, driver));
+            newQuotationInformationExtraction.setVariationDaily(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_DIARIA, driver));
+            newQuotationInformationExtraction.setVariation30(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_ULTIMOS_30, driver));
+            newQuotationInformationExtraction.setVariation90(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_ULTIMOS_90, driver));
+            newQuotationInformationExtraction.setVariation365(extractInfoFromRowCol(tablePrefix, currentRow, VARIACION_ANUAL, driver));
 
-            cotizaciones.add(newCotizacion);
+            cotizaciones.add(newQuotationInformationExtraction);
 
             currentRow++;
         }

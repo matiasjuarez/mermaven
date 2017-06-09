@@ -57,7 +57,7 @@ public class SimuladorConIngresosProporcionalesAInversionExistente extends Simul
         /*this.participacion = cliente.getCuentaCliente().getCuentaFondos().crearParticipacionParaFondo(fondo);
         cliente.getCajaAhorroPesos().extraer(importeInicialInvertir);
 
-        float cuotaPartesIniciales = importeInicialInvertir / participacion.getFondo().getValorCuotaParte().getCantidad();
+        float cuotaPartesIniciales = importeInicialInvertir / participacion.getFund().getValorCuotaParte().getCantidad();
         this.participacion.depositarCuotaPartes(cuotaPartesIniciales);
 
         this.variaciones = fondo.getEvolucion().getVariacionesOrdenasPorFecha();
