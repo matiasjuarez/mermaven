@@ -1,6 +1,6 @@
 package navigation.santander.InformationExtraction;
 
-import navigation.Tenencia;
+import navigation.santander.InformationExtraction.processing.HoldingInformationExtraction;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,33 +28,33 @@ public class TenenciaInformationExtractor {
 
     private final int timeout = 10;
 
-    public ArrayList<Tenencia> extractTenenciaInformation(WebDriver driver){
-        ArrayList<Tenencia> tenencias = new ArrayList<>();
+    public ArrayList<HoldingInformationExtraction> extractTenenciaInformation(WebDriver driver){
+        ArrayList<HoldingInformationExtraction> holdingInformationExtractions = new ArrayList<>();
 
-        tenencias.addAll(extractTenenciaInformationFromTable(LOC_TBL_PESOS, driver));
-        tenencias.addAll(extractTenenciaInformationFromTable(LOC_TBL_DOLARS, driver));
+        holdingInformationExtractions.addAll(extractTenenciaInformationFromTable(LOC_TBL_PESOS, driver));
+        holdingInformationExtractions.addAll(extractTenenciaInformationFromTable(LOC_TBL_DOLARS, driver));
 
-        return tenencias;
+        return holdingInformationExtractions;
     }
 
-    private ArrayList<Tenencia> extractTenenciaInformationFromTable(String tablePrefix, WebDriver driver){
-        ArrayList<Tenencia> tenencias = new ArrayList<>();
+    private ArrayList<HoldingInformationExtraction> extractTenenciaInformationFromTable(String tablePrefix, WebDriver driver){
+        ArrayList<HoldingInformationExtraction> holdingInformationExtractions = new ArrayList<>();
         int currentRow = STARTING_ROW_TABLE_INFO;
 
         while(rowExists(tablePrefix, currentRow, driver)){
-            Tenencia newTenencia = new Tenencia();
-            newTenencia.setFondo(extractFoundNameFromRow(tablePrefix, currentRow, driver));
-            newTenencia.setCuotapartes(extractInfoFromRowCol(tablePrefix, currentRow, COUTA_PARTES_COL, driver));
-            newTenencia.setUltimaCotizacion(extractInfoFromRowCol(tablePrefix, currentRow, ULTIMA_COTIZACION_COL, driver));
-            newTenencia.setPesos(extractInfoFromRowCol(tablePrefix, currentRow, PESOS_COL, driver));
-            newTenencia.setDolares(extractInfoFromRowCol(tablePrefix, currentRow, DOLARES_COL, driver));
+            HoldingInformationExtraction newHoldingInformationExtraction = new HoldingInformationExtraction();
+            newHoldingInformationExtraction.setFund(extractFoundNameFromRow(tablePrefix, currentRow, driver));
+            newHoldingInformationExtraction.setShareParts(extractInfoFromRowCol(tablePrefix, currentRow, COUTA_PARTES_COL, driver));
+            newHoldingInformationExtraction.setLastQuotation(extractInfoFromRowCol(tablePrefix, currentRow, ULTIMA_COTIZACION_COL, driver));
+            newHoldingInformationExtraction.setPesos(extractInfoFromRowCol(tablePrefix, currentRow, PESOS_COL, driver));
+            newHoldingInformationExtraction.setDolars(extractInfoFromRowCol(tablePrefix, currentRow, DOLARES_COL, driver));
 
-            tenencias.add(newTenencia);
+            holdingInformationExtractions.add(newHoldingInformationExtraction);
 
             currentRow++;
         }
 
-        return  tenencias;
+        return holdingInformationExtractions;
     }
 
     private boolean rowExists(String tablePrefix, int row, WebDriver driver){

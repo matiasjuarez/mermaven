@@ -1,11 +1,9 @@
 package matias.inversor.navigation;
 
-import navigation.Cotizacion;
-import navigation.Tenencia;
+import navigation.santander.InformationExtraction.processing.HoldingInformationExtraction;
+import navigation.santander.InformationExtraction.processing.QuotationInformationExtraction;
 import navigation.macro.MacroNavigation;
-import navigation.santander.InformationExtraction.CotizacionInformationExtractor;
 import navigation.santander.InformationExtraction.InformationExtractor;
-import navigation.santander.InformationExtraction.TenenciaInformationExtractor;
 import navigation.santander.SantanderNavigation;
 import org.junit.Test;
 
@@ -24,10 +22,10 @@ public class Navigation {
 
     private void testSantanderInformationExtractor(){
         InformationExtractor informationExtractor = new InformationExtractor();
-        ArrayList<Tenencia> tenencias = informationExtractor.extractTenenciaInformation();
-        System.out.println("tenencias: " + tenencias.size());
+        ArrayList<HoldingInformationExtraction> holdingInformationExtractions = informationExtractor.extractTenenciaInformation();
+        System.out.println("holdingInformationExtractions: " + holdingInformationExtractions.size());
 
-        ArrayList<Cotizacion> cotizaciones = informationExtractor.extractCotizacionInformation();
+        ArrayList<QuotationInformationExtraction> cotizaciones = informationExtractor.extractCotizacionInformation();
         System.out.println("Cotizaciones: " + cotizaciones.size());
     }
 
