@@ -1,11 +1,11 @@
-package evolutionAnalysis;
+package dataAnalysis;
 
 import java.util.Date;
 
 /**
  * Created by Matías on 27/04/2017.
  */
-public class MervalPosition {
+public class Indicator {
     private Date date;
     private float opening;
     private float closing;

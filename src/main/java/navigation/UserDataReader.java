@@ -1,7 +1,6 @@
 package navigation;
 
-import IO.PlainTextFileReader;
-import configuracion.Configuration;
+import IO.FileRead.PlainTextFileReader;
 
 import java.util.ArrayList;
 

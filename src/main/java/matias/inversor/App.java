@@ -1,9 +1,9 @@
 package matias.inversor;
 
-import IO.LectorArchivoHistoricoMerval;
+import IO.FileRead.IndicatorFileReader;
 import IO.VariacionFondoDAO;
-import evolutionAnalysis.AnalizadorBasico;
-import evolutionAnalysis.MervalPosition;
+import dataAnalysis.AnalizadorBasico;
+import dataAnalysis.Indicator;
 import conceptos.fondos.VariacionFondo;
 import simulacion.simuladores.ideasViejas.AnalizadorResultados;
 import simulacion.simuladores.ideasViejas.PresentadorResultados;
@@ -32,9 +32,9 @@ public class App
     private static void leerArchivoHistoricoMerval() throws Exception {
         String url = "M:\\Matias\\Documentos\\Finanzas\\Inversiones\\Merval\\Merval1998.ods";
 
-        LectorArchivoHistoricoMerval lector = new LectorArchivoHistoricoMerval();
+        IndicatorFileReader lector = new IndicatorFileReader();
 
-        ArrayList<MervalPosition> posicionesMerval = lector.leerArchivoHistoricoMerval(url);
+        ArrayList<Indicator> posicionesMerval = lector.readIndicatorFile(url);
 
         AnalizadorBasico analizadorBasico = new AnalizadorBasico(posicionesMerval);
 
