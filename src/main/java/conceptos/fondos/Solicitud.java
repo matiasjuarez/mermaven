@@ -3,7 +3,7 @@ package conceptos.fondos;
 import conceptos.Moneda;
 import conceptos.Monto;
 import conceptos.Operacion;
-import utilidades.ManejadorFechas;
+import utilidades.DateHandler;
 
 import java.util.Date;
 
@@ -51,9 +51,9 @@ public class Solicitud extends Operacion {
         Date fechaAcreditacion = null;
 
         if(tipo == Tipo.RESCATE) {
-            fechaAcreditacion = ManejadorFechas.sumarDiasFecha(fechaCreacion, fondo.getDiasParaAcreditarRescate());
+            fechaAcreditacion = DateHandler.addDays(fechaCreacion, fondo.getDiasParaAcreditarRescate());
         } else{
-            fechaAcreditacion = ManejadorFechas.sumarDiasFecha(fechaCreacion, fondo.getDiasParaAcreditarSuscripcion());
+            fechaAcreditacion = DateHandler.addDays(fechaCreacion, fondo.getDiasParaAcreditarSuscripcion());
         }
 
         Monto montoCuotaPartes = new Monto(Moneda.Tipo.CUOTA_PARTE, cuotaPartes);

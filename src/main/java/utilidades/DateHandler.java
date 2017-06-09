@@ -14,12 +14,12 @@ import java.util.GregorianCalendar;
  *
  * @author Matías
  */
-public class ManejadorFechas {
+public class DateHandler {
     
-    public static Date sumarDiasFecha(Date date, int dias){
+    public static Date addDays(Date date, int days){
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(date);
-        gc.add(GregorianCalendar.DATE, dias);
+        gc.add(GregorianCalendar.DATE, days);
         
         return gc.getTime();
     }

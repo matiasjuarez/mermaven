@@ -1,8 +1,7 @@
 package matias.inversor;
 
-import IO.FileRead.IndicatorFileReader;
+import dataAnalysis.FileReader.IndicatorFileReader;
 import IO.VariacionFondoDAO;
-import dataAnalysis.AnalizadorBasico;
 import dataAnalysis.IndicatorData;
 import conceptos.fondos.VariacionFondo;
 import simulacion.simuladores.ideasViejas.AnalizadorResultados;

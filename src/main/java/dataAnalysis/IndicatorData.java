@@ -7,11 +7,10 @@ import java.util.Date;
  */
 public class IndicatorData {
     private Date date;
-    private float opening;
-    private float closing;
-    private float maximum;
-    private float minimum;
-    private float variation;
+    private Float opening;
+    private Float closing;
+    private Float maximum;
+    private Float minimum;
 
     public Date getDate() {
         return date;
@@ -21,50 +20,55 @@ public class IndicatorData {
         this.date = date;
     }
 
-    public float getOpening() {
+    public Float getOpening() {
         return opening;
     }
 
-    public void setOpening(float opening) {
+    public void setOpening(Float opening) {
         this.opening = opening;
     }
 
-    public float getClosing() {
+    public Float getClosing() {
         return closing;
     }
 
-    public void setClosing(float closing) {
+    public void setClosing(Float closing) {
         this.closing = closing;
     }
 
-    public float getMaximum() {
+    public Float getMaximum() {
         return maximum;
     }
 
-    public void setMaximum(float maximum) {
+    public void setMaximum(Float maximum) {
         this.maximum = maximum;
     }
 
-    public float getMinimum() {
+    public Float getMinimum() {
         return minimum;
     }
 
-    public void setMinimum(float minimum) {
+    public void setMinimum(Float minimum) {
         this.minimum = minimum;
     }
 
-    public float getVariation() {
-        return variation;
-    }
+    public Float getPorcentualVariation() {
+        if(closing == null || opening == null){
+            return null;
+        }
 
-    public void setVariation(float variation) {
-        this.variation = variation;
+        Float variation = (closing * 100) / opening;
+        if(closing < opening){
+            variation *= -1;
+        }
+
+        return variation;
     }
 
     @Override
     public String toString(){
         String str = getDate() + ". Opening: " + getOpening();
-        str += ". Closing: " + getClosing() + ". Var: " + getVariation();
+        str += ". Closing: " + getClosing() + ". Var: " + getPorcentualVariation();
         str += ". Max: " + getMaximum() + ". Min: " + getMinimum();
 
         return str;

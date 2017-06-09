@@ -39,7 +39,7 @@ public class DAOMervalPosition extends DAO{
         fields.add(new QueryField(table.getClosing(), indicatorData.getClosing()));
         fields.add(new QueryField(table.getMaximum(), indicatorData.getMaximum()));
         fields.add(new QueryField(table.getMinimum(), indicatorData.getMinimum()));
-        fields.add(new QueryField(table.getVariation(), indicatorData.getVariation()));
+        fields.add(new QueryField(table.getVariation(), indicatorData.getPorcentualVariation()));
 
         return QueryBuilder.getInsertionQuery(fields, table.getTableName());
     }
