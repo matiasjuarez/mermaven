@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by Matías on 27/04/2017.
  */
-public class Indicator {
+public class IndicatorData {
     private Date date;
     private float opening;
     private float closing;

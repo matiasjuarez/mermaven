@@ -7,31 +7,31 @@ import java.util.ArrayList;
  */
 public class AnalizadorBasico
 {
-    private ArrayList<Indicator> posicionesMerval;
+    private ArrayList<IndicatorData> posicionesMerval;
 
-    public AnalizadorBasico(ArrayList<Indicator> posicionesMerval){
+    public AnalizadorBasico(ArrayList<IndicatorData> posicionesMerval){
         this.posicionesMerval = posicionesMerval;
         corregirDatosDeEntrada();
     }
 
     private void corregirDatosDeEntrada(){
-        ArrayList<Indicator> posicionesPurgadas = new ArrayList<>();
+        ArrayList<IndicatorData> posicionesPurgadas = new ArrayList<>();
 
-        for(Indicator indicator : posicionesMerval){
-            if(poseeValoresConsistentes(indicator)){
-                corregirVariaciones(indicator);
-                posicionesPurgadas.add(indicator);
+        for(IndicatorData indicatorData : posicionesMerval){
+            if(poseeValoresConsistentes(indicatorData)){
+                corregirVariaciones(indicatorData);
+                posicionesPurgadas.add(indicatorData);
             }
         }
 
         this.posicionesMerval = posicionesPurgadas;
     }
 
-    private boolean poseeValoresConsistentes(Indicator indicator){
-        float apertura = indicator.getOpening();
-        float cierre = indicator.getClosing();
-        float minimo = indicator.getMinimum();
-        float maximo = indicator.getMaximum();
+    private boolean poseeValoresConsistentes(IndicatorData indicatorData){
+        float apertura = indicatorData.getOpening();
+        float cierre = indicatorData.getClosing();
+        float minimo = indicatorData.getMinimum();
+        float maximo = indicatorData.getMaximum();
 
         if(apertura <= 0 || cierre <= 0 || maximo <= 0 || minimo <= 0){
             return false;
@@ -60,31 +60,31 @@ public class AnalizadorBasico
         return false;
     }
 
-    private void corregirVariaciones(Indicator indicator){
-        float diferenciaCierreApertura = indicator.getClosing() - indicator.getOpening();
-        float variacionPorcentual = diferenciaCierreApertura * 100 / indicator.getOpening();
-        indicator.setVariation(variacionPorcentual);
+    private void corregirVariaciones(IndicatorData indicatorData){
+        float diferenciaCierreApertura = indicatorData.getClosing() - indicatorData.getOpening();
+        float variacionPorcentual = diferenciaCierreApertura * 100 / indicatorData.getOpening();
+        indicatorData.setVariation(variacionPorcentual);
     }
 
-    public Indicator getMayorVariacionPositiva(){
+    public IndicatorData getMayorVariacionPositiva(){
 
-        Indicator mayorVariacion = posicionesMerval.get(0);
+        IndicatorData mayorVariacion = posicionesMerval.get(0);
 
-        for(Indicator indicator : posicionesMerval){
-            if(indicator.getVariation() > mayorVariacion.getVariation()){
-                mayorVariacion = indicator;
+        for(IndicatorData indicatorData : posicionesMerval){
+            if(indicatorData.getVariation() > mayorVariacion.getVariation()){
+                mayorVariacion = indicatorData;
             }
         }
 
         return mayorVariacion;
     }
 
-    public Indicator getMayorVariacionNegativa(){
-        Indicator mayorVariacion = posicionesMerval.get(0);
+    public IndicatorData getMayorVariacionNegativa(){
+        IndicatorData mayorVariacion = posicionesMerval.get(0);
 
-        for(Indicator indicator : posicionesMerval){
-            if(indicator.getVariation() < mayorVariacion.getVariation()){
-                mayorVariacion = indicator;
+        for(IndicatorData indicatorData : posicionesMerval){
+            if(indicatorData.getVariation() < mayorVariacion.getVariation()){
+                mayorVariacion = indicatorData;
             }
         }
 

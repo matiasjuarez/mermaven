@@ -1,6 +1,6 @@
 package IO.FileRead;
 
-import dataAnalysis.Indicator;
+import dataAnalysis.IndicatorData;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.Row;
@@ -27,40 +27,40 @@ public class IndicatorFileReader {
     private int maximumColumn = 4;
     private int minimumColumn = 5;
 
-    public ArrayList<Indicator> readIndicatorFile(String url) throws Exception {
+    public ArrayList<IndicatorData> readIndicatorFile(String url) throws Exception {
 
-        ArrayList<Indicator> posicionesMerval = new ArrayList<>();
+        ArrayList<IndicatorData> indicatorData = new ArrayList<>();
 
-        SpreadsheetDocument archivo = SpreadsheetDocument.loadDocument(url);
+        SpreadsheetDocument file = SpreadsheetDocument.loadDocument(url);
 
-        Table tabla = archivo.getTableByName(tableName);
+        Table table = file.getTableByName(tableName);
 
-        List<Row> filas = tabla.getRowList();
+        List<Row> rows = table.getRowList();
 
-        for(int i = firstRowToRead; i < filas.size(); i++){
+        for(int i = firstRowToRead; i < rows.size(); i++){
 
-            Row fila = filas.get(i);
+            Row row = rows.get(i);
 
-            Indicator indicator = cargarNuevaPosicionConValoresDeFila(fila);
+            IndicatorData data = createIndicatorDataFromRow(row);
 
-            posicionesMerval.add(indicator);
+            indicatorData.add(data);
 
         }
 
-        return posicionesMerval;
+        return indicatorData;
     }
 
-    private Indicator cargarNuevaPosicionConValoresDeFila(Row fila){
-        Indicator indicator = new Indicator();
+    private IndicatorData createIndicatorDataFromRow(Row row){
+        IndicatorData indicatorData = new IndicatorData();
 
-        extraerFecha(indicator, fila);
-        extraerValorCierre(indicator, fila);
-        extraerValorApertura(indicator, fila);
-        extraerVariacion(indicator, fila);
-        extraerMinimo(indicator, fila);
-        extraerMaximo(indicator, fila);
+        extractDate(indicatorData, row);
+        extractClosingValue(indicatorData, row);
+        extractOpeningValue(indicatorData, row);
+        extractVariation(indicatorData, row);
+        extractMinimum(indicatorData, row);
+        extractMaximum(indicatorData, row);
 
-        return indicator;
+        return indicatorData;
     }
 
     private float parsearNumeroLeido(String numero){
@@ -85,7 +85,7 @@ public class IndicatorFileReader {
         return numeroConvertido;
     }
 
-    private void extraerFecha(Indicator indicator, Row fila){
+    private void extractDate(IndicatorData indicatorData, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, dateColumn);
 
         Date fecha = null;
@@ -95,42 +95,42 @@ public class IndicatorFileReader {
             e.printStackTrace();
         }
 
-        indicator.setDate(fecha);
+        indicatorData.setDate(fecha);
     }
 
-    private  void extraerValorCierre(Indicator indicator, Row fila){
+    private  void extractClosingValue(IndicatorData indicatorData, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, closingColumn);
         float valorCierre = parsearNumeroLeido(valorCelda);
 
-        indicator.setClosing(valorCierre);
+        indicatorData.setClosing(valorCierre);
     }
 
-    private void extraerValorApertura(Indicator indicator, Row fila){
+    private void extractOpeningValue(IndicatorData indicatorData, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, openingColumn);
         float valorApertura = parsearNumeroLeido(valorCelda);
 
-        indicator.setOpening(valorApertura);
+        indicatorData.setOpening(valorApertura);
     }
 
-    private void extraerVariacion(Indicator indicator, Row fila){
+    private void extractVariation(IndicatorData indicatorData, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, variationColumn);
         float valorVariacion = parsearNumeroLeido(valorCelda);
 
-        indicator.setVariation(valorVariacion);
+        indicatorData.setVariation(valorVariacion);
     }
 
-    private void extraerMinimo(Indicator indicator, Row fila){
+    private void extractMinimum(IndicatorData indicatorData, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, minimumColumn);
         float valorMinimo = parsearNumeroLeido(valorCelda);
 
-        indicator.setMinimum(valorMinimo);
+        indicatorData.setMinimum(valorMinimo);
     }
 
-    private void extraerMaximo(Indicator indicator, Row fila){
+    private void extractMaximum(IndicatorData indicatorData, Row fila){
         String valorCelda = obtenerValorDeCelda(fila, maximumColumn);
         float valorMaximo = parsearNumeroLeido(valorCelda);
 
-        indicator.setMaximum(valorMaximo);
+        indicatorData.setMaximum(valorMaximo);
     }
 
     private String obtenerValorDeCelda(Row fila, int posicion){

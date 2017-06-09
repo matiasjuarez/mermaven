@@ -3,7 +3,7 @@ package matias.inversor;
 import IO.FileRead.IndicatorFileReader;
 import IO.VariacionFondoDAO;
 import dataAnalysis.AnalizadorBasico;
-import dataAnalysis.Indicator;
+import dataAnalysis.IndicatorData;
 import conceptos.fondos.VariacionFondo;
 import simulacion.simuladores.ideasViejas.AnalizadorResultados;
 import simulacion.simuladores.ideasViejas.PresentadorResultados;
@@ -34,7 +34,7 @@ public class App
 
         IndicatorFileReader lector = new IndicatorFileReader();
 
-        ArrayList<Indicator> posicionesMerval = lector.readIndicatorFile(url);
+        ArrayList<IndicatorData> posicionesMerval = lector.readIndicatorFile(url);
 
         AnalizadorBasico analizadorBasico = new AnalizadorBasico(posicionesMerval);
 
