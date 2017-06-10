@@ -2,14 +2,10 @@ package navigation.santander;
 
 import configuracion.Configuration;
 import navigation.santander.pages.ClientAccountPage;
-import navigation.santander.pages.LoginPage;
 import navigation.santander.pages.StartingPage;
 import navigation.webdrivers.WebDriverInitializer;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import utilidades.NavigationUtils;
-
-import java.util.ArrayList;
+import navigation.NavigationUtils;
 
 /**
  * Created by matias on 21/05/17.

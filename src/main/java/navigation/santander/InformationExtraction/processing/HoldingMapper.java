@@ -7,7 +7,7 @@ import utilidades.NumberHelper;
  */
 public class HoldingMapper {
 
-    public Holding mapHoldingInformationExtraction(HoldingInformationExtraction holdingToMap){
+    /*public Holding mapHoldingInformationExtraction(HoldingInformationExtraction holdingToMap){
         Holding mappedHolding = new Holding();
 
         mappedHolding.setFund(holdingToMap.getFund());
@@ -19,5 +19,5 @@ public class HoldingMapper {
         Float value = NumberHelper.convertToFloat(holdingToMap.getLastQuotation());
 
 
-    }
+    }*/
 }

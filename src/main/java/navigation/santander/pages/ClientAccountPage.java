@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utilidades.NavigationUtils;
+import navigation.NavigationUtils;
 
 /**
  * Created by matias on 25/05/17.

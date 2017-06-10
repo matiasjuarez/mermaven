@@ -3,7 +3,7 @@ package navigation.macro;
 import configuracion.Configuration;
 import navigation.webdrivers.WebDriverInitializer;
 import org.openqa.selenium.WebDriver;
-import utilidades.NavigationUtils;
+import navigation.NavigationUtils;
 
 import java.util.ArrayList;
 

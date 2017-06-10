@@ -2,40 +2,41 @@ package dataAnalysis.Analists;
 
 import dataAnalysis.IndicatorData;
 
+
 import java.util.ArrayList;
 
 /**
  * Created by matias on 09/06/17.
  */
-public class BasicAnalist extends Analist{
+public class BasicAnalyst extends Analist{
     private Float averageVariation;
 
-    public BasicAnalist(ArrayList<IndicatorData> indicatorDataList){
+    public BasicAnalyst(ArrayList<IndicatorData> indicatorDataList){
         super(indicatorDataList);
     }
 
-    public IndicatorData getMaximumPositiveVariation(){
-        IndicatorData maximumPositiveVariation = indicatorDataList.get(0);
+    public IndicatorData getBestVariation(){
+        IndicatorData bestVariation = indicatorDataList.get(0);
 
         for(IndicatorData indicatorData : this.indicatorDataList){
-            if(indicatorData.getPorcentualVariation() > maximumPositiveVariation.getPorcentualVariation()){
-                maximumPositiveVariation = indicatorData;
+            if(indicatorData.getPorcentualVariation() > bestVariation.getPorcentualVariation()){
+                bestVariation = indicatorData;
             }
         }
 
-        return maximumPositiveVariation;
+        return bestVariation;
     }
 
-    public IndicatorData getMaximumNegativeVariation(){
-        IndicatorData maximumNegativeVariation = indicatorDataList.get(0);
+    public IndicatorData getWorstVariation(){
+        IndicatorData worstVariation = indicatorDataList.get(0);
 
         for(IndicatorData indicatorData : this.indicatorDataList){
-            if(indicatorData.getPorcentualVariation() < maximumNegativeVariation.getPorcentualVariation()){
-                maximumNegativeVariation = indicatorData;
+            if(indicatorData.getPorcentualVariation() < worstVariation.getPorcentualVariation()){
+                worstVariation = indicatorData;
             }
         }
 
-        return maximumNegativeVariation;
+        return worstVariation;
     }
 
     public Float getAverageVariation(){

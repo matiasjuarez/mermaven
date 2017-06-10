@@ -27,7 +27,7 @@ public class Quotation {
         String rawValue = quotation.getValue();
         if(rawValue.contains(pesoSymbol)){
             money = Moneda.Tipo.PESO;
-            rawValue.replaceAll()
+            rawValue.replaceAll(pesoSymbol, "");
         }
     }
 

@@ -4,7 +4,7 @@ import navigation.santander.InformationExtraction.processing.HoldingInformationE
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utilidades.NavigationUtils;
+import navigation.NavigationUtils;
 
 import java.util.ArrayList;
 

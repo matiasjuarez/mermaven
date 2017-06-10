@@ -21,43 +21,6 @@ public class App
 
     public static void main(String[] args) {
 
-        try {
-          leerArchivoHistoricoMerval();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    private static void leerArchivoHistoricoMerval() throws Exception {
-        String url = "M:\\Matias\\Documentos\\Finanzas\\Inversiones\\Merval\\Merval1998.ods";
-
-        IndicatorFileReader lector = new IndicatorFileReader();
-
-        ArrayList<IndicatorData> posicionesMerval = lector.readIndicatorFile(url);
-
-        AnalizadorBasico analizadorBasico = new AnalizadorBasico(posicionesMerval);
-
-        System.out.println("Cantidad de entradas: " + posicionesMerval.size());
-        System.out.println("Mayor positiva: " + analizadorBasico.getMayorVariacionPositiva());
-        System.out.println("Mayor negativa: " + analizadorBasico.getMayorVariacionNegativa());
-    }
-
-    private static void simularSuscripcionPorcentualConstanteSegunVariacionHistorica(){
-        String url = "M:\\Matias\\Documentos\\Inversiones\\Software\\FondosComunes\\src\\simulacion.simuladores.Datos\\Merval2011.txt";
-
-        ArrayList<VariacionFondo> variaciones = VariacionFondoDAO.leerValoresHistoricosVariacion(url);
-
-        SimuladorSuscripcionesBasadoEnEvolucionHistorica simulador =
-                new SimuladorSuscripcionesBasadoEnEvolucionHistorica(variaciones, 130000, 1000);
-
-
-        ArrayList<ResultadoSimulacion> resultados = simulador.simularConPorcentajeDeSuscripcionConstante(1, 100, 1);
-
-        AnalizadorResultados analizador = new AnalizadorResultados(resultados);
-        presentador.setAnalizadorResultados(analizador);
-
-        //presentador.mostrarTodosLosResultadosCompletos();
-        //presentador.mostrarLosNmejores(20);
-        presentador.mostrarMejorYPeor();
-    }
 }

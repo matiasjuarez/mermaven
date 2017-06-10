@@ -4,7 +4,7 @@ import navigation.UserDataReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import utilidades.NavigationUtils;
+import navigation.NavigationUtils;
 
 /**
  * Created by matias on 21/05/17.

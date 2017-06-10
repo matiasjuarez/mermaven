@@ -1,4 +1,4 @@
-package utilidades;
+package navigation;
 
 import IO.Logger;
 import navigation.Frame;

@@ -57,12 +57,10 @@ public class IndicatorData {
             return null;
         }
 
-        Float variation = (closing * 100) / opening;
-        if(closing < opening){
-            variation *= -1;
-        }
+        Float variation = closing - opening;
+        Float porcentualVariation = variation * 100 / opening;
 
-        return variation;
+        return porcentualVariation;
     }
 
     @Override
