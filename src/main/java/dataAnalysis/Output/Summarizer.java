@@ -1,6 +1,6 @@
 package dataAnalysis.Output;
 
-import dataAnalysis.Analysts.BasicAnalyst;
+import dataAnalysis.analysis.Analysts.BasicAnalyst;
 import dataAnalysis.IndicatorData;
 
 import java.util.ArrayList;

@@ -17,21 +17,18 @@ public class Sorter {
 
     public static void sortByDate(ArrayList<IndicatorData> data, int order) {
 
-        Collections.sort(data, new Comparator<IndicatorData>() {
-            @Override
-            public int compare(IndicatorData indicatorData, IndicatorData t1) {
-                Date date1 = indicatorData.getDate();
-                Date date2 = t1.getDate();
+        Collections.sort(data, (indicatorData, t1) -> {
+            Date date1 = indicatorData.getDate();
+            Date date2 = t1.getDate();
 
-                if (date1.before(date2)) {
-                    return -1;
-                } else if (date1.after(date2)) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-
+            if (date1.before(date2)) {
+                return -1;
+            } else if (date1.after(date2)) {
+                return 1;
+            } else {
+                return 0;
             }
+
         });
 
         if(order == Sorter.DESCENDING){

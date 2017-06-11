@@ -1,4 +1,4 @@
-package dataAnalysis.Analysts;
+package dataAnalysis.analysis.Analysts;
 
 import dataAnalysis.IndicatorData;
 import dataAnalysis.dataTools.IndicatorDataValidator;

@@ -1,23 +1,34 @@
-package dataAnalysis;
+package dataAnalysis.analysis;
+
+import dataAnalysis.IndicatorData;
 
 import java.util.ArrayList;
 
 /**
  * Created by matias on 11/06/17.
  */
-public class DataAnalysis {
+public class BasicAnalystData {
     private ArrayList<IndicatorData> indicatorDataList;
 
     private Float averageVariation;
     private Float sumOfVariations;
     private Float sumOfPositiveVariations;
     private Float sumOfNegativeVariations;
-    private Float sumOfExceptionalVariations;
 
     private IndicatorData maxVariation;
     private IndicatorData minVariation;
     private IndicatorData maxClosing;
     private IndicatorData minOpening;
+
+    private IndicatorData bestVariation;
+    private IndicatorData worstVariation;
+
+    private ArrayList<IndicatorData> bestVariations;
+    private ArrayList<IndicatorData> worstVariations;
+
+    private ArrayList<IndicatorData> variationsAboveAverage;
+    private ArrayList<IndicatorData> variationsBelowAverage;
+    private ArrayList<IndicatorData> variationsCloseToAverage;
 
     public ArrayList<IndicatorData> getIndicatorDataList() {
         return indicatorDataList;
@@ -59,14 +70,6 @@ public class DataAnalysis {
         this.sumOfNegativeVariations = sumOfNegativeVariations;
     }
 
-    public Float getSumOfExceptionalVariations() {
-        return sumOfExceptionalVariations;
-    }
-
-    public void setSumOfExceptionalVariations(Float sumOfExceptionalVariations) {
-        this.sumOfExceptionalVariations = sumOfExceptionalVariations;
-    }
-
     public IndicatorData getMaxVariation() {
         return maxVariation;
     }
@@ -97,5 +100,61 @@ public class DataAnalysis {
 
     public void setMaxClosing(IndicatorData maxClosing) {
         this.maxClosing = maxClosing;
+    }
+
+    public IndicatorData getBestVariation() {
+        return bestVariation;
+    }
+
+    public void setBestVariation(IndicatorData bestVariation) {
+        this.bestVariation = bestVariation;
+    }
+
+    public IndicatorData getWorstVariation() {
+        return worstVariation;
+    }
+
+    public void setWorstVariation(IndicatorData worstVariation) {
+        this.worstVariation = worstVariation;
+    }
+
+    public ArrayList<IndicatorData> getBestVariations() {
+        return bestVariations;
+    }
+
+    public void setBestVariations(ArrayList<IndicatorData> bestVariations) {
+        this.bestVariations = bestVariations;
+    }
+
+    public ArrayList<IndicatorData> getWorstVariations() {
+        return worstVariations;
+    }
+
+    public void setWorstVariations(ArrayList<IndicatorData> worstVariations) {
+        this.worstVariations = worstVariations;
+    }
+
+    public ArrayList<IndicatorData> getVariationsAboveAverage() {
+        return variationsAboveAverage;
+    }
+
+    public void setVariationsAboveAverage(ArrayList<IndicatorData> variationsAboveAverage) {
+        this.variationsAboveAverage = variationsAboveAverage;
+    }
+
+    public ArrayList<IndicatorData> getVariationsBelowAverage() {
+        return variationsBelowAverage;
+    }
+
+    public void setVariationsBelowAverage(ArrayList<IndicatorData> variationsBelowAverage) {
+        this.variationsBelowAverage = variationsBelowAverage;
+    }
+
+    public ArrayList<IndicatorData> getVariationsCloseToAverage() {
+        return variationsCloseToAverage;
+    }
+
+    public void setVariationsCloseToAverage(ArrayList<IndicatorData> variationsCloseToAverage) {
+        this.variationsCloseToAverage = variationsCloseToAverage;
     }
 }

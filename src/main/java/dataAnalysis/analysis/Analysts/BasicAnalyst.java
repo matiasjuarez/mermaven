@@ -1,8 +1,7 @@
-package dataAnalysis.Analysts;
+package dataAnalysis.analysis.Analysts;
 
 import dataAnalysis.IndicatorData;
 import dataAnalysis.dataTools.Filter;
-import utilidades.collections.CollectionFilter;
 import utilidades.collections.CollectionFilterUtility;
 
 
@@ -101,16 +100,8 @@ public class BasicAnalyst {
      * @return the indicatorData object with the minimal variation
      */
     public static IndicatorData getMinVariation(ArrayList<IndicatorData> indicatorDataList) {
-        IndicatorData minVariation = indicatorDataList.get(0);
-
-        for (IndicatorData indicatorData : indicatorDataList) {
-            if (Math.abs(indicatorData.getPorcentualVariation()) <
-                    Math.abs(minVariation.getPorcentualVariation())) {
-                minVariation = indicatorData;
-            }
-        }
-
-        return minVariation;
+        return CollectionFilterUtility.getObjectFromCollection(indicatorDataList, (comparisonObject, nextObject) -> Math.abs(nextObject.getPorcentualVariation()) <
+                Math.abs(comparisonObject.getPorcentualVariation()), true);
     }
 
     /**
@@ -120,16 +111,17 @@ public class BasicAnalyst {
      * @return the indicatorData object with the maximal variation
      */
     public static IndicatorData getMaxVariation(ArrayList<IndicatorData> indicatorDataList) {
-        IndicatorData maxVariation = indicatorDataList.get(0);
+        return CollectionFilterUtility.getObjectFromCollection(indicatorDataList, (comparisonObject, nextObject) -> Math.abs(nextObject.getPorcentualVariation()) >
+                Math.abs(comparisonObject.getPorcentualVariation()), true);
+    }
 
-        for (IndicatorData indicatorData : indicatorDataList) {
-            if (Math.abs(indicatorData.getPorcentualVariation()) >
-                    Math.abs(maxVariation.getPorcentualVariation())) {
-                maxVariation = indicatorData;
-            }
-        }
+    public static IndicatorData getMinOpening(ArrayList<IndicatorData> indicatorDataList) {
+        return CollectionFilterUtility.getObjectFromCollection(indicatorDataList, (comparisonObject, nextObject) -> Math.abs(nextObject.getOpening()) <
+                Math.abs(comparisonObject.getOpening()), true);
+    }
 
-        return maxVariation;
+    public static IndicatorData getMaxClosing(ArrayList<IndicatorData> indicatorDataList) {
+        return CollectionFilterUtility.getObjectFromCollection(indicatorDataList, (comparisonObject, nextObject) -> Math.abs(nextObject.getClosing()) > Math.abs(comparisonObject.getClosing()), true);
     }
 
     public static Float getAverageVariation(ArrayList<IndicatorData> indicatorDataList) {
