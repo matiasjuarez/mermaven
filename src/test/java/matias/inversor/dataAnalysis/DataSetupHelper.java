@@ -26,14 +26,14 @@ public class DataSetupHelper {
         indicatorData2.setMaximum(200f);
         indicatorData2.setOpening(150f);
         indicatorData2.setClosing(120f);
-        indicatorData2.setDate(getDateFromString("03/05/2000"));
+        indicatorData2.setDate(getDateFromString("04/05/2000"));
 
         IndicatorData indicatorData3 = new IndicatorData();
         indicatorData3.setMinimum(130f);
         indicatorData3.setMaximum(220f);
         indicatorData3.setOpening(150f);
         indicatorData3.setClosing(190f);
-        indicatorData3.setDate(getDateFromString("04/05/2000"));
+        indicatorData3.setDate(getDateFromString("03/05/2000"));
 
         ArrayList<IndicatorData> indicatorDataList = new ArrayList<>();
         indicatorDataList.add(indicatorData1);

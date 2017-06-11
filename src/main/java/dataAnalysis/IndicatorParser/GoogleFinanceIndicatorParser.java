@@ -53,7 +53,7 @@ public class GoogleFinanceIndicatorParser {
             return Float.parseFloat(number);
         }
         catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             Logger.getInstance().log("A problem happened while trying to parse this number: " + number);
             return null;
         }

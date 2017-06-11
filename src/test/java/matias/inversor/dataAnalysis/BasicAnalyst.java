@@ -94,6 +94,38 @@ public class BasicAnalyst {
         }
     }
 
+    @Test
+    public void testGetBestNVariations(){
+        ArrayList<IndicatorData> bestVariations;
+
+        bestVariations = basicAnalyst.getBestNVariations(10);
+
+        Assert.assertEquals(3, bestVariations.size());
+        Assert.assertTrue(bestVariations.get(0).getPorcentualVariation() > bestVariations.get(1).getPorcentualVariation());
+        Assert.assertTrue(bestVariations.get(1).getPorcentualVariation() > bestVariations.get(2).getPorcentualVariation());
+
+        bestVariations = basicAnalyst.getBestNVariations(2);
+
+        Assert.assertEquals(2, bestVariations.size());
+        Assert.assertTrue(bestVariations.get(0).getPorcentualVariation() > bestVariations.get(1).getPorcentualVariation());
+    }
+
+    @Test
+    public void testGetWorstNVariations(){
+        ArrayList<IndicatorData> worstVariations;
+
+        worstVariations = basicAnalyst.getWorstNVariations(10);
+
+        Assert.assertEquals(3, worstVariations.size());
+        Assert.assertTrue(worstVariations.get(0).getPorcentualVariation() < worstVariations.get(1).getPorcentualVariation());
+        Assert.assertTrue(worstVariations.get(1).getPorcentualVariation() < worstVariations.get(2).getPorcentualVariation());
+
+        worstVariations = basicAnalyst.getWorstNVariations(2);
+
+        Assert.assertEquals(2, worstVariations.size());
+        Assert.assertTrue(worstVariations.get(0).getPorcentualVariation() < worstVariations.get(1).getPorcentualVariation());
+    }
+
     private boolean isDistanceBetweenValuesValid(Float value1, Float value2, Float allowedGap){
         Float distance = Math.abs(value1 - value2);
         return distance <= allowedGap;
