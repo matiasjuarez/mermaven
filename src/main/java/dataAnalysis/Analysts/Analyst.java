@@ -1,7 +1,7 @@
-package dataAnalysis.Analists;
+package dataAnalysis.Analysts;
 
 import dataAnalysis.IndicatorData;
-import dataAnalysis.IndicatorDataValidator;
+import dataAnalysis.dataTools.IndicatorDataValidator;
 
 import java.util.ArrayList;
 

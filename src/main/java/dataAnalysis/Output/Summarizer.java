@@ -1,6 +1,6 @@
 package dataAnalysis.Output;
 
-import dataAnalysis.Analists.BasicAnalyst;
+import dataAnalysis.Analysts.BasicAnalyst;
 import dataAnalysis.IndicatorData;
 
 import java.util.ArrayList;
@@ -24,11 +24,9 @@ public class Summarizer {
     }
 
     private void appendBasicAnalysisSection(Summary summary){
-        BasicAnalyst basicAnalyst = new BasicAnalyst(indicatorDataList);
-
-        Float averageVariation = basicAnalyst.getAverageVariation();
-        IndicatorData bestVariation = basicAnalyst.getBestVariation();
-        IndicatorData worstVariation = basicAnalyst.getWorstVariation();
+        Float averageVariation = BasicAnalyst.getAverageVariation(indicatorDataList);
+        IndicatorData bestVariation = BasicAnalyst.getBestVariation(indicatorDataList);
+        IndicatorData worstVariation = BasicAnalyst.getWorstVariation(indicatorDataList);
 
         Section section = new Section("Basic analysis");
         section.addNewParagraph("Average variation: " + averageVariation.toString());
@@ -39,10 +37,8 @@ public class Summarizer {
     }
 
     private void appendBestAndWorstVariationsSections(Summary summary){
-        BasicAnalyst basicAnalyst = new BasicAnalyst(indicatorDataList);
-
-        Section bestVariations = buildBestWorsVariationsSection("BEST VARIATIONS", basicAnalyst.getBestNVariations(10));
-        Section worstVariations = buildBestWorsVariationsSection("WORST VARIATIONS", basicAnalyst.getWorstNVariations(10));
+        Section bestVariations = buildBestWorsVariationsSection("BEST VARIATIONS", BasicAnalyst.getBestNVariations(indicatorDataList, 10));
+        Section worstVariations = buildBestWorsVariationsSection("WORST VARIATIONS", BasicAnalyst.getWorstNVariations(indicatorDataList, 10));
 
         summary.addSection(bestVariations);
         summary.addSection(worstVariations);

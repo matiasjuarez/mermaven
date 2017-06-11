@@ -1,4 +1,6 @@
-package dataAnalysis;
+package dataAnalysis.dataTools;
+
+import dataAnalysis.IndicatorData;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +15,7 @@ public class Sorter {
     public static int ASCENDING = 0;
     public static int DESCENDING = 1;
 
-    public void sortByDate(ArrayList<IndicatorData> data, int order) {
+    public static void sortByDate(ArrayList<IndicatorData> data, int order) {
 
         Collections.sort(data, new Comparator<IndicatorData>() {
             @Override

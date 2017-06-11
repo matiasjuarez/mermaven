@@ -1,4 +1,6 @@
-package dataAnalysis;
+package dataAnalysis.dataTools;
+
+import dataAnalysis.IndicatorData;
 
 import java.util.ArrayList;
 

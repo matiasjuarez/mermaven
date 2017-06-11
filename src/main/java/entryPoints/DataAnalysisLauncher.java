@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by matias on 10/06/17.
  */
-public class DataAnalysis {
+public class DataAnalysisLauncher {
     public static void main(String args[]) throws Exception {
         String mervalDataURL = "/home/matias/Documents/Projects/mermaven/src/main/Datos/archivosMerval/mervalGoogleFinance.ods";
 

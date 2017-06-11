@@ -1,5 +1,6 @@
 package matias.inversor.dataAnalysis;
 
+import dataAnalysis.Analysts.BasicAnalyst;
 import dataAnalysis.IndicatorData;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,17 +11,17 @@ import java.util.ArrayList;
 /**
  * Created by matias on 10/06/17.
  */
-public class BasicAnalyst {
-    private static dataAnalysis.Analists.BasicAnalyst basicAnalyst;
+public class BasicAnalystTest {
+    private static ArrayList<IndicatorData> indicatorDataList;
 
     @Before
     public void setup(){
-        basicAnalyst = new dataAnalysis.Analists.BasicAnalyst(DataSetupHelper.getIndicatorDataForTest());
+        indicatorDataList = DataSetupHelper.getIndicatorDataForTest();
     }
 
     @Test
     public void testBestVariation(){
-        IndicatorData indicatorData = basicAnalyst.getBestVariation();
+        IndicatorData indicatorData = BasicAnalyst.getBestVariation(indicatorDataList);
         Float porcentualVariation = indicatorData.getPorcentualVariation();
 
         Assert.assertEquals(26.66, porcentualVariation, 0.1);
@@ -28,7 +29,7 @@ public class BasicAnalyst {
 
     @Test
     public void testWorstVariation(){
-        IndicatorData indicatorData = basicAnalyst.getWorstVariation();
+        IndicatorData indicatorData = BasicAnalyst.getWorstVariation(indicatorDataList);
         Float porcentualVariation = indicatorData.getPorcentualVariation();
 
         Assert.assertEquals(-20, porcentualVariation, 0.1);
@@ -36,60 +37,60 @@ public class BasicAnalyst {
 
     @Test
     public void testAverageVariation(){
-        Float averageVariation = basicAnalyst.getAverageVariation();
+        Float averageVariation = BasicAnalyst.getAverageVariation(indicatorDataList);
 
         Assert.assertEquals(6.22, averageVariation, 0.1);
     }
 
     @Test
     public void testGetIndicatorsVariationAboveAverage(){
-        Float averageVariation = basicAnalyst.getAverageVariation();
-        ArrayList<IndicatorData> indicatorDataList = basicAnalyst.getIndicatorDataWithVariationAboveAverage();
+        Float averageVariation = BasicAnalyst.getAverageVariation(indicatorDataList);
+        ArrayList<IndicatorData> indicatorDataAboveAverage = BasicAnalyst.getIndicatorDataWithVariationAboveAverage(indicatorDataList);
 
-        Assert.assertEquals(2, indicatorDataList.size());
+        Assert.assertEquals(2, indicatorDataAboveAverage.size());
 
-        for(IndicatorData indicatorData : indicatorDataList){
+        for(IndicatorData indicatorData : indicatorDataAboveAverage){
             Assert.assertTrue(indicatorData.getPorcentualVariation() > averageVariation);
         }
     }
 
     @Test
     public void testGetIndicatorsVariationBelowAverage(){
-        Float averageVariation = basicAnalyst.getAverageVariation();
-        ArrayList<IndicatorData> indicatorDataList = basicAnalyst.getIndicatorDataWithVariationBelowAverage();
+        Float averageVariation = BasicAnalyst.getAverageVariation(indicatorDataList);
+        ArrayList<IndicatorData> indicatorDataBelowAverage = BasicAnalyst.getIndicatorDataWithVariationBelowAverage(indicatorDataList);
 
-        Assert.assertEquals(1, indicatorDataList.size());
+        Assert.assertEquals(1, indicatorDataBelowAverage.size());
 
-        for(IndicatorData indicatorData : indicatorDataList){
+        for(IndicatorData indicatorData : indicatorDataBelowAverage){
             Assert.assertTrue(indicatorData.getPorcentualVariation() < averageVariation);
         }
     }
 
     @Test
     public void testGetIndicatorsVariationCloseToAverage(){
-        Float averageVariation = basicAnalyst.getAverageVariation();
+        Float averageVariation = BasicAnalyst.getAverageVariation(indicatorDataList);
 
         Float allowedGap = 10f;
-        ArrayList<IndicatorData> indicatorDataList = basicAnalyst.getIndicatorDataWithVariationCloseToAverage(allowedGap);
-        Assert.assertEquals(1, indicatorDataList.size());
+        ArrayList<IndicatorData> indicatorDataCloseToAverage = BasicAnalyst.getIndicatorDataWithVariationCloseToAverage(indicatorDataList, allowedGap);
+        Assert.assertEquals(1, indicatorDataCloseToAverage.size());
 
-        for(IndicatorData indicatorData : indicatorDataList){
+        for(IndicatorData indicatorData : indicatorDataCloseToAverage){
             Assert.assertTrue(isDistanceBetweenValuesValid(indicatorData.getPorcentualVariation(), averageVariation, allowedGap));
         }
 
         allowedGap = 30f;
-        indicatorDataList = basicAnalyst.getIndicatorDataWithVariationCloseToAverage(allowedGap);
-        Assert.assertEquals(3, indicatorDataList.size());
+        indicatorDataCloseToAverage = BasicAnalyst.getIndicatorDataWithVariationCloseToAverage(indicatorDataList, allowedGap);
+        Assert.assertEquals(3, indicatorDataCloseToAverage.size());
 
-        for(IndicatorData indicatorData : indicatorDataList){
+        for(IndicatorData indicatorData : indicatorDataCloseToAverage){
             Assert.assertTrue(isDistanceBetweenValuesValid(indicatorData.getPorcentualVariation(), averageVariation, allowedGap));
         }
 
         allowedGap = 21f;
-        indicatorDataList = basicAnalyst.getIndicatorDataWithVariationCloseToAverage(allowedGap);
-        Assert.assertEquals(2, indicatorDataList.size());
+        indicatorDataCloseToAverage = BasicAnalyst.getIndicatorDataWithVariationCloseToAverage(indicatorDataList, allowedGap);
+        Assert.assertEquals(2, indicatorDataCloseToAverage.size());
 
-        for(IndicatorData indicatorData : indicatorDataList){
+        for(IndicatorData indicatorData : indicatorDataCloseToAverage){
             Assert.assertTrue(isDistanceBetweenValuesValid(indicatorData.getPorcentualVariation(), averageVariation, allowedGap));
         }
     }
@@ -98,13 +99,13 @@ public class BasicAnalyst {
     public void testGetBestNVariations(){
         ArrayList<IndicatorData> bestVariations;
 
-        bestVariations = basicAnalyst.getBestNVariations(10);
+        bestVariations = BasicAnalyst.getBestNVariations(indicatorDataList, 10);
 
         Assert.assertEquals(3, bestVariations.size());
         Assert.assertTrue(bestVariations.get(0).getPorcentualVariation() > bestVariations.get(1).getPorcentualVariation());
         Assert.assertTrue(bestVariations.get(1).getPorcentualVariation() > bestVariations.get(2).getPorcentualVariation());
 
-        bestVariations = basicAnalyst.getBestNVariations(2);
+        bestVariations = BasicAnalyst.getBestNVariations(indicatorDataList, 2);
 
         Assert.assertEquals(2, bestVariations.size());
         Assert.assertTrue(bestVariations.get(0).getPorcentualVariation() > bestVariations.get(1).getPorcentualVariation());
@@ -114,13 +115,13 @@ public class BasicAnalyst {
     public void testGetWorstNVariations(){
         ArrayList<IndicatorData> worstVariations;
 
-        worstVariations = basicAnalyst.getWorstNVariations(10);
+        worstVariations = BasicAnalyst.getWorstNVariations(indicatorDataList, 10);
 
         Assert.assertEquals(3, worstVariations.size());
         Assert.assertTrue(worstVariations.get(0).getPorcentualVariation() < worstVariations.get(1).getPorcentualVariation());
         Assert.assertTrue(worstVariations.get(1).getPorcentualVariation() < worstVariations.get(2).getPorcentualVariation());
 
-        worstVariations = basicAnalyst.getWorstNVariations(2);
+        worstVariations = BasicAnalyst.getWorstNVariations(indicatorDataList, 2);
 
         Assert.assertEquals(2, worstVariations.size());
         Assert.assertTrue(worstVariations.get(0).getPorcentualVariation() < worstVariations.get(1).getPorcentualVariation());
