@@ -2,7 +2,6 @@ package dataAnalysis.analysis;
 
 import dataAnalysis.IndicatorData;
 import dataAnalysis.analysis.Analysts.BasicAnalyst;
-import dataAnalysis.analysis.BasicAnalystData;
 
 import java.util.ArrayList;
 
