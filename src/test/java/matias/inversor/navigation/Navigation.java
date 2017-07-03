@@ -1,10 +1,10 @@
 package matias.inversor.navigation;
 
-import navigation.santander.InformationExtraction.processing.HoldingInformationExtraction;
-import navigation.santander.InformationExtraction.processing.QuotationInformationExtraction;
-import navigation.macro.MacroNavigation;
-import navigation.santander.InformationExtraction.InformationExtractor;
-import navigation.santander.SantanderNavigation;
+import matias.navigation.santander.InformationExtraction.processing.HoldingInformationExtraction;
+import matias.navigation.santander.InformationExtraction.processing.QuotationInformationExtraction;
+import matias.navigation.macro.MacroNavigation;
+import matias.navigation.santander.InformationExtraction.InformationExtractor;
+import matias.navigation.santander.SantanderNavigation;
 import org.junit.Test;
 
 import java.util.ArrayList;

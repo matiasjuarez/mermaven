@@ -1,7 +1,7 @@
 package matias.inversor.dataAnalysis;
 
-import dataAnalysis.analysis.Analysts.BasicAnalyst;
-import dataAnalysis.IndicatorData;
+import matias.dataAnalysis.analysis.Analysts.BasicAnalyst;
+import matias.dataAnalysis.IndicatorData;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
