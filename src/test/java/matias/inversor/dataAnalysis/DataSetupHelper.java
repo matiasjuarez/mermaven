@@ -1,7 +1,7 @@
 package matias.inversor.dataAnalysis;
 
-import dataAnalysis.IndicatorData;
-import utilidades.DateHandler;
+import matias.dataAnalysis.IndicatorData;
+import matias.utilidades.DateHandler;
 
 import java.text.ParseException;
 import java.util.ArrayList;
