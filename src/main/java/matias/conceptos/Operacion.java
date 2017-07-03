@@ -14,26 +14,26 @@ public class Operacion {
 
     private final Date fechaCreacion;
     private final Date fechaAcreditacion;
-    private final Monto monto;
+    private final Amount amount;
     private boolean acreditado;
     private String descripcion;
 
-    public Operacion(Date fechaCreacion, Monto monto){
-        this(fechaCreacion, fechaCreacion, monto);
+    public Operacion(Date fechaCreacion, Amount amount){
+        this(fechaCreacion, fechaCreacion, amount);
     }
 
-    public Operacion(Date fechaCreacion, Monto monto, String descripcion){
-        this(fechaCreacion, fechaCreacion, monto, descripcion);
+    public Operacion(Date fechaCreacion, Amount amount, String descripcion){
+        this(fechaCreacion, fechaCreacion, amount, descripcion);
     }
 
-    public Operacion(Date fechaCreacion, Date fechaAcreditacion, Monto monto){
-        this(fechaCreacion, fechaAcreditacion, monto, "");
+    public Operacion(Date fechaCreacion, Date fechaAcreditacion, Amount amount){
+        this(fechaCreacion, fechaAcreditacion, amount, "");
     }
 
-    public Operacion(Date fechaCreacion, Date fechaAcreditacion, Monto monto, String descripcion){
+    public Operacion(Date fechaCreacion, Date fechaAcreditacion, Amount amount, String descripcion){
         this.fechaCreacion = fechaCreacion;
         this.fechaAcreditacion = fechaAcreditacion;
-        this.monto = monto;
+        this.amount = amount;
         this.descripcion = descripcion;
         this.acreditado = false;
     }
@@ -42,8 +42,8 @@ public class Operacion {
         return fechaCreacion;
     }
 
-    public Monto getMonto() {
-        return monto;
+    public Amount getAmount() {
+        return amount;
     }
 
     public String getDescripcion() {

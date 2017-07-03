@@ -1,6 +1,7 @@
 package matias.navigation.santander.InformationExtraction.processing;
 
 import matias.conceptos.Currency;
+import matias.conceptos.CurrencyType;
 
 /**
  * Created by matias on 28/05/17.
@@ -12,7 +13,7 @@ public class Quotation {
     private float variation30;
     private float variation60;
     private float variaiton365;
-    private Currency.Type money;
+    private Currency currency;
 
     private final String pesoSymbol = "$";
     private final String dolarSymbol = "U$S";
@@ -26,7 +27,7 @@ public class Quotation {
 
         String rawValue = quotation.getValue();
         if(rawValue.contains(pesoSymbol)){
-            money = Currency.Type.PESO;
+            currency = new Currency(CurrencyType.PESO);
             rawValue.replaceAll(pesoSymbol, "");
         }
     }
@@ -55,7 +56,7 @@ public class Quotation {
         return variaiton365;
     }
 
-    public Currency.Type getMoney() {
-        return money;
+    public Currency getCurrency() {
+        return currency;
     }
 }

@@ -18,6 +18,7 @@ public class MutualFund implements Serializable{
     private int id;
     @ManyToOne(optional = false)
     private Bank bank;
+    @Column(nullable = false)
     private String name;
     @ManyToOne(optional = false)
     private Currency currency;

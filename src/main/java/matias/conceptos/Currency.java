@@ -5,6 +5,7 @@
  */
 package matias.conceptos;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,17 +17,18 @@ import java.io.Serializable;
  */
 @Entity
 public class Currency implements Serializable{
-    
-    public enum Type {
-        PESO, 
-        DOLAR,
-        CUOTA_PARTE;
-    }
-
     @Id
     @GeneratedValue
     private int id;
-    private Type type;
+
+    @Column(nullable = false)
+    private String name;
+
+    public Currency(){}
+
+    public Currency(CurrencyType type){
+        this.name = type.name();
+    }
 
     public int getId() {
         return id;
@@ -36,11 +38,11 @@ public class Currency implements Serializable{
         this.id = id;
     }
 
-    public Type getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 }

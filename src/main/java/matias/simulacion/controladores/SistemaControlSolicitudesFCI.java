@@ -38,7 +38,7 @@ public class SistemaControlSolicitudesFCI {
      * @throws ExcepcionMonedaIncompatible
      */
     /*public Request crearSolicitudSegunCuotaPartes
-    (CajaDeAhorro cajaDeAhorro, ParticipacionFondo participacionFondo, float cuotaPartes, Request.Type tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
+    (CajaDeAhorro cajaDeAhorro, MutualFundAccountAdministrativeData participacionFondo, float cuotaPartes, Request.Type tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
 
         validarNuevaSolicitud(cajaDeAhorro, participacionFondo, cuotaPartes, tipoSolicitud);
 
@@ -51,7 +51,7 @@ public class SistemaControlSolicitudesFCI {
     }*/
 
     /*private void validarNuevaSolicitud(CajaDeAhorro cajaDeAhorro,
-                                       ParticipacionFondo participacionFondo,
+                                       MutualFundAccountAdministrativeData participacionFondo,
                                        float cuotaPartes, Request.Type tipoSolicitud) throws ExcepcionFondosInsuficientes, ExcepcionMonedaIncompatible {
 
         if(cajaDeAhorro.getCuenta().getMoneda() != participacionFondo.getMonedaDelFondo()){
@@ -66,26 +66,26 @@ public class SistemaControlSolicitudesFCI {
         }
     }*/
 
-    /*private void validarNuevoRescate(ParticipacionFondo participacionFondo, float cuotaPartesSolicitadas) throws ExcepcionFondosInsuficientes {
+    /*private void validarNuevoRescate(MutualFundAccountAdministrativeData participacionFondo, float cuotaPartesSolicitadas) throws ExcepcionFondosInsuficientes {
 
         float cuotaPartesYaSolicitadas = 0;
         ArrayList<Request> solicitudesNoProcesadas = AlmacenSolicitudes.getInstance().getSolicitudesSegunEstado(Request.Status.CREATED);
 
         for(Request solicitud : solicitudesNoProcesadas){
             if(solicitud.getFund().getName().equalsIgnoreCase(participacionFondo.getFund().getName())){
-                cuotaPartesYaSolicitadas += solicitud.getMonto().getCantidad();
+                cuotaPartesYaSolicitadas += solicitud.getAmount().getQuantity();
             }
         }
 
-        if(participacionFondo.getCuenta().getCapital().getCantidad() - cuotaPartesYaSolicitadas < cuotaPartesSolicitadas){
+        if(participacionFondo.getCuenta().getCapital().getQuantity() - cuotaPartesYaSolicitadas < cuotaPartesSolicitadas){
             throw new ExcepcionFondosInsuficientes("La cantidad de cuota partes que desea rescatar es superior a la cantidad que usted posee");
         }
     }
 
-    private void validarNuevaSuscripcion(ParticipacionFondo participacionFondo, float cuotaPartes, CajaDeAhorro cajaDeAhorro) throws ExcepcionFondosInsuficientes {
-        float valorMonetarioCuotaPartes = participacionFondo.getFund().getValorCuotaParte().getCantidad() * cuotaPartes;
+    private void validarNuevaSuscripcion(MutualFundAccountAdministrativeData participacionFondo, float cuotaPartes, CajaDeAhorro cajaDeAhorro) throws ExcepcionFondosInsuficientes {
+        float valorMonetarioCuotaPartes = participacionFondo.getFund().getValorCuotaParte().getQuantity() * cuotaPartes;
 
-        if(cajaDeAhorro.getCuenta().getCapital().getCantidad() < valorMonetarioCuotaPartes){
+        if(cajaDeAhorro.getCuenta().getCapital().getQuantity() < valorMonetarioCuotaPartes){
             throw new ExcepcionFondosInsuficientes("No posee dinero suficiente en su caja de ahorro para efectuar la suscripcion al FCI");
         }
     }*/
@@ -102,14 +102,14 @@ public class SistemaControlSolicitudesFCI {
      * @throws ExcepcionMonedaIncompatible
      * @throws ExcepcionFondosInsuficientes
      */
-    /*public Request crearSolicitudSegunDinero(CajaDeAhorro cajaDeAhorro, ParticipacionFondo participacionFondo,
-                                               Monto monto, Request.Type tipoSolicitud) throws ExcepcionMonedaIncompatible, ExcepcionFondosInsuficientes {
+    /*public Request crearSolicitudSegunDinero(CajaDeAhorro cajaDeAhorro, MutualFundAccountAdministrativeData participacionFondo,
+                                               Amount monto, Request.Type tipoSolicitud) throws ExcepcionMonedaIncompatible, ExcepcionFondosInsuficientes {
 
         if(monto.getMoneda() != participacionFondo.getMonedaDelFondo()){
             throw new ExcepcionMonedaIncompatible("La cantidad que de dinero con la que desea operar esta expresada en una moneda diferente a la moneda en la que opera el FCI");
         }
 
-        float cuotaPartes = monto.getCantidad() / participacionFondo.getFund().getValorCuotaParte().getCantidad();
+        float cuotaPartes = monto.getQuantity() / participacionFondo.getFund().getValorCuotaParte().getQuantity();
 
         return crearSolicitudSegunCuotaPartes(cajaDeAhorro, participacionFondo, cuotaPartes, tipoSolicitud);
     }*/
