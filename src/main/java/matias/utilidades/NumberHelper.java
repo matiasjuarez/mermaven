@@ -14,7 +14,7 @@ public class NumberHelper {
         try{
             return Float.parseFloat(cleanNumber);
         } catch(NumberFormatException nfe){
-            Logger.getInstance().log("Could not convert value to number: " + numberToConvert);
+            Logger.getInstance().info("Could not convert value to number: " + numberToConvert);
             return null;
         }
     }

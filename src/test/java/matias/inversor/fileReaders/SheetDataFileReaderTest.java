@@ -1,7 +1,7 @@
 package matias.inversor.fileReaders;
 
-import matias.IO.OldDataLoad.HoldingDataRaw;
-import matias.IO.OldDataLoad.OldDataFileReader;
+import matias.IO.SheetDataLoad.SheetData;
+import matias.IO.SheetDataLoad.SheetDataFileReader;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,13 +9,13 @@ import java.util.ArrayList;
 /**
  * Created by matias on 10/07/17.
  */
-public class OldDataFileReaderTest {
+public class SheetDataFileReaderTest {
 
     @Test
     public void testReadOldDate() throws Exception {
         String url = "/home/matias/Desktop/Seguimiento.ods";
-        OldDataFileReader reader = new OldDataFileReader(url);
-        ArrayList<HoldingDataRaw> data = reader.readOldDataFile();
+        SheetDataFileReader reader = new SheetDataFileReader(url);
+        ArrayList<SheetData> data = reader.readOldDataFile();
         System.out.println(data.size());
     }
 }

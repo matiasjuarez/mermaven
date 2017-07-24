@@ -1,5 +1,7 @@
 package matias.conceptos.fondos;
 
+import matias.IO.DB.IdClasses.ShareQuotationId;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.Date;
  * Created by matias on 27/06/17.
  */
 @Entity
+@IdClass(ShareQuotationId.class)
 public class ShareQuotation implements Serializable{
     @Id
     private Date date;

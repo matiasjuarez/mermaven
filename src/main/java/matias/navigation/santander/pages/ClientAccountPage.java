@@ -88,7 +88,7 @@ public class ClientAccountPage {
         NavigationUtils.goToFrameThroughParents(info_menu, webDriver, timeout);
 
         if(isErrorMessagePresent(webDriver)){
-            Logger.getInstance().log(getErrorMessage(webDriver));
+            Logger.getInstance().info(getErrorMessage(webDriver));
         }
     }
 
@@ -100,7 +100,7 @@ public class ClientAccountPage {
         NavigationUtils.goToFrameThroughParents(info_menu, webDriver, timeout);
 
         if(isErrorMessagePresent(webDriver)){
-            Logger.getInstance().log(getErrorMessage(webDriver));
+            Logger.getInstance().info(getErrorMessage(webDriver));
         }
     }
 

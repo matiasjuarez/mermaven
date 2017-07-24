@@ -1,7 +1,8 @@
 package matias.conceptos.fondos;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import matias.IO.DB.IdClasses.HoldingId;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,9 +10,15 @@ import java.util.Date;
  * Created by matias on 27/06/17.
  */
 @Entity
-public class Holdings implements Serializable{
-    @Id private Date date;
-    @Id private int commonFund;
+@IdClass(HoldingId.class)
+public class Holding implements Serializable{
+    @Id
+    private Date date;
+
+    @ManyToOne
+    @Id
+    @JoinColumn
+    private MutualFund mutualFund;
     private float shares;
 
     public Date getDate() {
@@ -22,12 +29,12 @@ public class Holdings implements Serializable{
         this.date = date;
     }
 
-    public int getCommonFund() {
-        return commonFund;
+    public MutualFund getMutualFund() {
+        return mutualFund;
     }
 
-    public void setCommonFund(int commonFund) {
-        this.commonFund = commonFund;
+    public void setMutualFund(MutualFund mutualFund) {
+        this.mutualFund = mutualFund;
     }
 
     public float getShares() {

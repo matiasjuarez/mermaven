@@ -17,7 +17,11 @@ public class Logger {
         return logger;
     }
 
-    public void log(String mensaje){
-        //System.out.println(mensaje);
+    public void info(String mensaje){
+        System.out.println(mensaje);
+    }
+
+    public void error(String message){
+        System.err.println(message);
     }
 }

@@ -1,4 +1,4 @@
-package matias.REST;
+package matias.REST.services;
 
 import matias.IO.DB.Repositories.MutualFundRepository;
 import matias.conceptos.fondos.MutualFund;

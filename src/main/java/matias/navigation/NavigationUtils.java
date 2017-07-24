@@ -106,7 +106,7 @@ public class NavigationUtils {
             return true;
         }
         catch(TimeoutException te){
-            Logger.getInstance().log("The page didn't load in time: " + driver.getCurrentUrl());
+            Logger.getInstance().info("The page didn't load in time: " + driver.getCurrentUrl());
 
             return false;
         }

@@ -43,7 +43,7 @@ public class GoogleFinanceIndicatorParser {
             return date;
         } catch (ParseException e) {
             e.printStackTrace();
-            Logger.getInstance().log("There was a problem while trying to parse this date: " + rawDate);
+            Logger.getInstance().info("There was a problem while trying to parse this date: " + rawDate);
             return null;
         }
     }
@@ -54,7 +54,7 @@ public class GoogleFinanceIndicatorParser {
         }
         catch(Exception e){
             //e.printStackTrace();
-            Logger.getInstance().log("A problem happened while trying to parse this number: " + number);
+            Logger.getInstance().info("A problem happened while trying to parse this number: " + number);
             return null;
         }
     }

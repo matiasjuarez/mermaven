@@ -1,12 +1,11 @@
-package matias.IO.OldDataLoad;
-
-import java.util.Date;
+package matias.IO.SheetDataLoad;
 
 /**
  * Created by matias on 09/07/17.
  */
-public class HoldingDataRaw {
+public class SheetData {
     private String fundName;
+    private String fundCurrencySymbol;
     private String shares;
     private String quotation;
     private String date;
@@ -17,6 +16,14 @@ public class HoldingDataRaw {
 
     public void setFundName(String fundName) {
         this.fundName = fundName;
+    }
+
+    public String getFundCurrencySymbol() {
+        return fundCurrencySymbol;
+    }
+
+    public void setFundCurrencySymbol(String fundCurrencySymbol) {
+        this.fundCurrencySymbol = fundCurrencySymbol;
     }
 
     public String getShares() {

@@ -25,6 +25,10 @@ public class DateHandler {
     }
     
     public static Date parseDate(String dateFormat, String valueToParse) throws ParseException{
+        if(dateFormat == null || valueToParse == null){
+            return null;
+        }
+
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         
         return sdf.parse(valueToParse);
