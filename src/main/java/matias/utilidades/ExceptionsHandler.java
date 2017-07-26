@@ -11,4 +11,15 @@ public class ExceptionsHandler {
         e.printStackTrace();
         throw new RuntimeException(e.getMessage());
     }
+
+    public static void logException(Exception e, boolean printStackTrace){
+        Logger.getInstance().error(e.getMessage());
+        if(printStackTrace){
+            e.printStackTrace();
+        }
+    }
+
+    public static void logException(Exception e){
+        logException(e, false);
+    }
 }

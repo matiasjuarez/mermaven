@@ -8,5 +8,5 @@ import java.util.Date;
  */
 public class HoldingId implements Serializable{
     private Date date;
-    private int mutualFund;
+    private int investmentConcept;
 }

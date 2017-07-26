@@ -1,4 +1,4 @@
-package matias.IO.DB.Repositories;
+package matias.IO.DB.Repositories.investment;
 
 import matias.conceptos.fondos.Holding;
 import org.springframework.data.repository.CrudRepository;

@@ -1,5 +1,7 @@
 package matias.IO.DB.Repositories;
 
+import matias.IO.DB.Repositories.investment.HoldingRepository;
+import matias.IO.DB.Repositories.investment.RepositoriesHolder_Investment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ public class RepositoryHolder {
     private HoldingRepository holdingRepository;
     @Autowired
     private ShareQuotationRepository shareQuotationRepository;
+    @Autowired
+    private RepositoriesHolder_Investment repositoriesHolder_investment;
 
     @Autowired
     private CurrencyRepository currencyRepository;
@@ -58,5 +62,13 @@ public class RepositoryHolder {
 
     public void setCurrencyRepository(CurrencyRepository currencyRepository) {
         this.currencyRepository = currencyRepository;
+    }
+
+    public RepositoriesHolder_Investment getRepositoriesHolder_investment() {
+        return repositoriesHolder_investment;
+    }
+
+    public void setRepositoriesHolder_investment(RepositoriesHolder_Investment repositoriesHolder_investment) {
+        this.repositoriesHolder_investment = repositoriesHolder_investment;
     }
 }

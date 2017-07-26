@@ -49,9 +49,9 @@ public class SheetDataFileReader {
             String fundName = fundNameAndCurrency[0];
             String fundCurrency = fundNameAndCurrency[1];
 
-            sheetData.setFundName(fundName.trim());
-            sheetData.setFundCurrencySymbol(fundCurrency.trim());
-            sheetData.setShares(getStringValueFromCell(colIndex, rowIndex));
+            sheetData.setInvestmentConceptName(fundName.trim());
+            sheetData.setCurrencySymbol(fundCurrency.trim());
+            sheetData.setHoldings(getStringValueFromCell(colIndex, rowIndex));
             sheetData.setQuotation(getStringValueFromCell(colIndex + 1, rowIndex));
             sheetData.setDate(date);
 

@@ -4,34 +4,34 @@ package matias.IO.SheetDataLoad;
  * Created by matias on 09/07/17.
  */
 public class SheetData {
-    private String fundName;
-    private String fundCurrencySymbol;
-    private String shares;
+    private String investmentConceptName;
+    private String currencySymbol;
+    private String holdings;
     private String quotation;
     private String date;
 
-    public String getFundName() {
-        return fundName;
+    public String getInvestmentConceptName() {
+        return investmentConceptName;
     }
 
-    public void setFundName(String fundName) {
-        this.fundName = fundName;
+    public void setInvestmentConceptName(String investmentConceptName) {
+        this.investmentConceptName = investmentConceptName;
     }
 
-    public String getFundCurrencySymbol() {
-        return fundCurrencySymbol;
+    public String getCurrencySymbol() {
+        return currencySymbol;
     }
 
-    public void setFundCurrencySymbol(String fundCurrencySymbol) {
-        this.fundCurrencySymbol = fundCurrencySymbol;
+    public void setCurrencySymbol(String currencySymbol) {
+        this.currencySymbol = currencySymbol;
     }
 
-    public String getShares() {
-        return shares;
+    public String getHoldings() {
+        return holdings;
     }
 
-    public void setShares(String shares) {
-        this.shares = shares;
+    public void setHoldings(String holdings) {
+        this.holdings = holdings;
     }
 
     public String getQuotation() {

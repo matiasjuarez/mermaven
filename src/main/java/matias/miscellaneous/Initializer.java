@@ -1,12 +1,11 @@
 package matias.miscellaneous;
 
-import matias.IO.DB.Repositories.CurrencyRepository;
 import matias.IO.DB.Repositories.RepositoryHolder;
-import matias.IO.SheetDataLoad.SheetDataLoader;
+import matias.IO.SheetDataLoad.secondApproach.SheetDataLoader;
 import matias.conceptos.Bank;
 import matias.conceptos.Currency;
 import matias.conceptos.CurrencyType;
-import matias.conceptos.fondos.MutualFund;
+import matias.conceptos.investment.InvestmentConceptOwner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +23,18 @@ public class Initializer {
 
     public void initialize(){
         loadCurrencies();
-        loadBanks();
+        loadInvestmentConceptOwners();
         loadSheetData();
     }
 
     private void loadSheetData(){
-        String url = "/home/matias/Desktop/Seguimiento.ods";
-        Bank santander = holder.getBankRepository().findByName("santander").get(0);
+        String url = "/home/matias/Desktop/SeguimientoCompleto.ods";
+        InvestmentConceptOwner santander =
+                holder.getRepositoriesHolder_investment().
+                        getInvestmentConceptOwnerRepository().findByName("santander");
+
         sheetDataLoader.setSheetURL(url);
-        sheetDataLoader.setBank(santander);
+        sheetDataLoader.setInvestmentConceptOwner(santander);
         sheetDataLoader.loadDataIntoDatabase();
     }
 
@@ -48,5 +50,12 @@ public class Initializer {
         bank.setName("santander");
 
         holder.getBankRepository().save(bank);
+    }
+
+    private void loadInvestmentConceptOwners(){
+        InvestmentConceptOwner santander = new InvestmentConceptOwner();
+        santander.setName("santander");
+
+        holder.getRepositoriesHolder_investment().getInvestmentConceptOwnerRepository().save(santander);
     }
 }

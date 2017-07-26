@@ -1,18 +1,17 @@
-package matias.conceptos.fondos;
+package matias.conceptos.investment;
 
-import matias.IO.DB.IdClasses.HoldingId;
-import matias.conceptos.investment.InvestmentConcept;
+import matias.IO.DB.IdClasses.investment.QuotationId;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by matias on 27/06/17.
+ * Created by matias on 24/07/17.
  */
 @Entity
-@IdClass(HoldingId.class)
-public class Holding implements Serializable{
+@IdClass(QuotationId.class)
+public class Quotation implements Serializable{
     @Id
     private Date date;
 
@@ -20,7 +19,8 @@ public class Holding implements Serializable{
     @Id
     @JoinColumn
     private InvestmentConcept investmentConcept;
-    private float amount;
+    private float opening;
+    private float closing;
 
     public Date getDate() {
         return date;
@@ -38,11 +38,19 @@ public class Holding implements Serializable{
         this.investmentConcept = investmentConcept;
     }
 
-    public float getAmount() {
-        return amount;
+    public float getOpening() {
+        return opening;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setOpening(float opening) {
+        this.opening = opening;
+    }
+
+    public float getClosing() {
+        return closing;
+    }
+
+    public void setClosing(float closing) {
+        this.closing = closing;
     }
 }

@@ -70,7 +70,7 @@ public class SheetDataLoader {
         for(SheetData sheetData : sheetDataList){
             MutualFund mutualFund = null;
             for(MutualFund aMutualFund : mutualFunds){
-                if(aMutualFund.getName().equalsIgnoreCase(sheetData.getFundName())){
+                if(aMutualFund.getName().equalsIgnoreCase(sheetData.getInvestmentConceptName())){
                     mutualFund = aMutualFund;
                     break;
                 }
@@ -102,15 +102,15 @@ public class SheetDataLoader {
         holding.setDate(date);
         float shares;
         try{
-            shares = Float.parseFloat(sheetData.getShares());
+            shares = Float.parseFloat(sheetData.getHoldings());
             if(shares == 0){
                 return null;
             }
-            holding.setShares(shares);
+            holding.setAmount(shares);
         } catch(NumberFormatException nfe){
             return null;
         }
-        holding.setMutualFund(mutualFund);
+        holding.setInvestmentConcept(mutualFund);
 
         return holding;
     }
@@ -153,13 +153,13 @@ public class SheetDataLoader {
         HashSet<String> mutualFundNames = new HashSet<>();
 
         for(SheetData sheetData : sheetDataList){
-            if(!mutualFundNames.contains(sheetData.getFundName())){
-                mutualFundNames.add(sheetData.getFundName());
+            if(!mutualFundNames.contains(sheetData.getInvestmentConceptName())){
+                mutualFundNames.add(sheetData.getInvestmentConceptName());
 
                 MutualFund mutualFund = new MutualFund();
-                mutualFund.setName(sheetData.getFundName());
+                mutualFund.setName(sheetData.getInvestmentConceptName());
                 mutualFund.setBank(getBank());
-                String fundCurrencySymbol = sheetData.getFundCurrencySymbol();
+                String fundCurrencySymbol = sheetData.getCurrencySymbol();
                 mutualFund.setCurrency(holder.getCurrencyRepository().findBySymbol(fundCurrencySymbol));
 
                 holder.getMutualFundRepository().save(mutualFund);
